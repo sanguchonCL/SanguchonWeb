@@ -1,29 +1,28 @@
 @import "tailwindcss";
 
 /* =============================================
-   SAN GUCHON — DESIGN SYSTEM
-   Tailwind CSS v4 + Custom Design Tokens
-   Premium Gourmet Landing Page
+   SAN GUCHON — DESIGN SYSTEM (SPATIAL & GLASSMORPHISM)
+   Tailwind CSS v4 + Space Theme Tokens
    ============================================= */
 
 @theme {
-  --color-ketchup: #C62828;
-  --color-ketchup-deep: #8E1B1B;
-  --color-red-light: #EF5350;
-  --color-gold: #F9A825;
-  --color-gold-dark: #E08F00;
-  --color-gold-light: #FFD54F;
+  --color-ketchup: #FF3333;
+  --color-ketchup-deep: #B71C1C;
+  --color-red-light: #FF5252;
+  --color-gold: #FFB300;
+  --color-gold-dark: #FF8F00;
+  --color-gold-light: #FFE082;
   --color-mustard: #E6A817;
   --color-cheese: #FFCA28;
-  --color-cream: #FEF5E7;
-  --color-cream-warm: #F5E0C3;
-  --color-tan: #E8C9A0;
+  --color-cream: #0c0813;
+  --color-cream-warm: #180e22;
+  --color-tan: #301b40;
   --color-sesame: #FFF3E0;
-  --color-dark-sanguchon: #1C1210;
-  --color-dark-card: #2A1D17;
-  --color-dark-soft: #3E2C22;
-  --color-charcoal: #231815;
-  --color-smoke: #3D2E26;
+  --color-dark-sanguchon: #09050d;
+  --color-dark-card: rgba(22, 12, 31, 0.65);
+  --color-dark-soft: rgba(38, 22, 54, 0.7);
+  --color-charcoal: #09050c;
+  --color-smoke: #251631;
   --color-green-fresh: #66BB6A;
   --color-green-deep: #43A047;
 
@@ -31,57 +30,51 @@
   --font-display: 'Playfair Display', Georgia, serif;
 }
 
-/* =============================================
-   ROOT VARIABLES — Full Design System
-   ============================================= */
 :root {
-  /* Ketchup & Sauce Reds */
-  --red: #C62828;
-  --red-dark: #8E1B1B;
-  --red-light: #EF5350;
-  --red-glow: rgba(198, 40, 40, 0.30);
-  --ketchup: #D32F2F;
+  /* Cosmic color palette */
+  --red: #FF3333;
+  --red-dark: #8E0E0E;
+  --red-light: #FF5252;
+  --red-glow: rgba(255, 51, 51, 0.4);
+  --ketchup: #FF3333;
   --ketchup-deep: #B71C1C;
 
-  /* Mustard & Cheese Golds */
-  --gold: #F9A825;
-  --gold-dark: #E08F00;
-  --gold-light: #FFD54F;
-  --gold-glow: rgba(249, 168, 37, 0.35);
+  --gold: #FFB300;
+  --gold-dark: #FF8F00;
+  --gold-light: #FFE082;
+  --gold-glow: rgba(255, 179, 0, 0.45);
   --mustard: #E6A817;
   --cheese: #FFCA28;
 
-  /* Toasted Bun Tones */
-  --cream: #FEF5E7;
-  --cream-warm: #F5E0C3;
-  --tan: #E8C9A0;
+  /* Space Background Tones */
+  --cream: #0c0813;
+  --cream-warm: #180e22;
+  --tan: #301b40;
   --sesame: #FFF3E0;
-  --bun-golden: #D4A855;
-  --bun-crust: #B8860B;
+  --bun-golden: #FFCA28;
+  --bun-crust: #FF8F00;
 
-  /* Smoke & Grill Darks */
-  --dark: #1C1210;
-  --dark-card: #2A1D17;
-  --dark-soft: #3E2C22;
-  --charcoal: #231815;
-  --smoke: #3D2E26;
+  --dark: #09050d;
+  --dark-card: rgba(22, 12, 31, 0.65);
+  --dark-soft: rgba(38, 22, 54, 0.7);
+  --charcoal: #09050c;
+  --smoke: #251631;
 
-  /* Greens */
   --green-fresh: #66BB6A;
   --green-deep: #43A047;
 
-  /* Text Colors */
-  --text-dark: #1C1210;
-  --text-body: #5D4037;
-  --text-light: #8D6E63;
-  --text-white: #FFFAF5;
-  --text-muted: rgba(255,245,235,0.6);
+  /* Text Colors optimized for Spatial Dark Theme */
+  --text-dark: #FFFFFF;
+  --text-body: #E0D4EC;
+  --text-light: #BCAECB;
+  --text-white: #FFFFFF;
+  --text-muted: rgba(230, 220, 245, 0.6);
 
-  /* Neutral */
-  --white: #FFFFFF;
-  --border: rgba(90,50,20,0.08);
-  --border-light: rgba(255,200,120,0.10);
-  --border-warm: rgba(212,168,85,0.15);
+  /* Glassmorphism settings */
+  --white: rgba(25, 14, 35, 0.55);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.12);
+  --border-warm: rgba(255, 179, 0, 0.15);
 
   /* Typography */
   --font-body: 'Outfit', system-ui, sans-serif;
@@ -91,12 +84,12 @@
   /* Spacing */
   --section-py: clamp(4rem, 8vw, 7rem);
 
-  /* Shadows */
-  --shadow-card: 0 4px 24px rgba(60,30,10,0.08);
-  --shadow-card-hover: 0 20px 50px rgba(60,30,10,0.12);
-  --shadow-float: 0 24px 60px rgba(28,18,16,0.15);
-  --shadow-btn: 0 6px 20px var(--red-glow);
-  --shadow-warm: 0 8px 30px rgba(212,168,85,0.12);
+  /* Shadows and Cosmic Glows */
+  --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --shadow-card-hover: 0 20px 50px rgba(255, 51, 51, 0.1), 0 0 30px rgba(255, 179, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  --shadow-float: 0 24px 60px rgba(0, 0, 0, 0.6);
+  --shadow-btn: 0 0 20px var(--red-glow);
+  --shadow-warm: 0 0 30px rgba(255, 179, 0, 0.15);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -104,16 +97,13 @@
   --duration: 0.5s;
 
   /* Radius */
-  --radius-sm: 12px;
-  --radius-md: 20px;
-  --radius-lg: 28px;
-  --radius-xl: 40px;
+  --radius-sm: 16px;
+  --radius-md: 24px;
+  --radius-lg: 32px;
+  --radius-xl: 48px;
   --radius-full: 100px;
 }
 
-/* =============================================
-   BASE RESET & GLOBAL STYLES
-   ============================================= */
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;
@@ -129,6 +119,11 @@ html {
 body {
   font-family: var(--font-body);
   background-color: var(--cream);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255, 51, 51, 0.1) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, rgba(255, 179, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 70%);
+  background-attachment: fixed;
   color: var(--text-dark);
   line-height: 1.65;
   overflow-x: hidden;
@@ -138,31 +133,39 @@ body {
   padding: 0;
 }
 
+/* Glassmorphism menu & testimonial cards */
+.menu-card, .testimonial-card {
+  background: var(--white) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border) !important;
+}
+
+.menu-card:hover, .testimonial-card:hover {
+  border-color: rgba(255, 179, 0, 0.3) !important;
+  background: rgba(35, 20, 48, 0.65) !important;
+}
+
 img { max-width: 100%; height: auto; display: block; }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; padding: 0; margin: 0; }
 button { font-family: inherit; cursor: pointer; }
 
-/* =============================================
-   TYPOGRAPHY
-   ============================================= */
 h1, h2, h3, h4 {
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0;
+  color: #FFFFFF;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 h1 { font-size: clamp(2.6rem, 5.5vw, 4.5rem); }
 h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
 h3 { font-size: clamp(1.3rem, 2vw, 1.6rem); }
 
 .font-display { font-family: var(--font-display); font-style: italic; }
-
 p { margin: 0; }
 
-/* =============================================
-   LAYOUT
-   ============================================= */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -175,9 +178,7 @@ section {
   position: relative;
 }
 
-/* =============================================
-   BUTTONS
-   ============================================= */
+/* Buttons with glowing shadows */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -197,67 +198,68 @@ section {
 .btn-primary {
   background: linear-gradient(135deg, var(--ketchup) 0%, var(--red-light) 100%);
   color: var(--text-white);
-  box-shadow: var(--shadow-btn);
+  box-shadow: 0 0 20px rgba(255, 51, 51, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .btn-primary:hover {
   background: linear-gradient(135deg, var(--ketchup-deep) 0%, var(--ketchup) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px var(--red-glow);
+  box-shadow: 0 0 30px rgba(255, 51, 51, 0.6);
 }
 
 .btn-secondary {
-  background: linear-gradient(135deg, var(--mustard), var(--cheese));
-  color: var(--dark);
+  background: linear-gradient(135deg, var(--gold), var(--cheese));
+  color: #0c0813;
   font-weight: 800;
+  box-shadow: 0 0 20px rgba(255, 179, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 .btn-secondary:hover {
-  background: linear-gradient(135deg, var(--gold-dark), var(--mustard));
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px var(--gold-glow);
+  box-shadow: 0 0 30px rgba(255, 179, 0, 0.5);
 }
 
 .btn-outline {
-  background: transparent;
-  border: 2px solid var(--dark);
-  color: var(--dark);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  backdrop-filter: blur(10px);
 }
 .btn-outline:hover {
-  background: var(--dark);
-  color: var(--white);
+  background: #FFFFFF;
+  color: #0c0813;
+  border-color: #FFFFFF;
 }
 
 .btn-outline-light {
-  background: transparent;
-  border: 2px solid rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(255,255,255,0.25);
   color: var(--text-white);
+  backdrop-filter: blur(10px);
 }
 .btn-outline-light:hover {
   background: var(--white);
-  color: var(--dark);
   border-color: var(--white);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .btn-lg { padding: 1.1rem 2.5rem; font-size: 1.05rem; }
 .btn-sm { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
 
-/* =============================================
-   MATERIAL SYMBOLS
-   ============================================= */
 .material-symbols-rounded {
   font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
   vertical-align: middle;
 }
 
-/* =============================================
-   CHIPS / BADGES
-   ============================================= */
+/* Glassmorphic Chips */
 .chip {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   padding: 0.45rem 1rem;
-  background: linear-gradient(135deg, rgba(198,40,40,0.08), rgba(249,168,37,0.08));
-  border: 1px solid rgba(198,40,40,0.15);
+  background: rgba(255, 51, 51, 0.08);
+  border: 1px solid rgba(255, 51, 51, 0.25);
   border-radius: var(--radius-full);
   font-size: 0.85rem;
   font-weight: 700;
@@ -265,17 +267,16 @@ section {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin-bottom: 1rem;
+  backdrop-filter: blur(5px);
 }
 .chip--dark {
-  background: linear-gradient(135deg, var(--charcoal), var(--dark-soft));
-  border-color: var(--border-light);
+  background: rgba(255, 179, 0, 0.08);
+  border-color: rgba(255, 179, 0, 0.25);
   color: var(--mustard);
 }
 .chip__icon { font-size: 1.1rem; }
 
-/* =============================================
-   SECTION HEADERS
-   ============================================= */
+/* Section headers text colors */
 .section-header {
   text-align: center;
   max-width: 650px;
@@ -292,20 +293,15 @@ section {
   font-size: 1.1rem;
   margin-top: 0.8rem;
 }
-.text-white-heading { color: var(--white); }
+.text-white-heading { color: #FFFFFF !important; }
 
-/* =============================================
-   UTILITIES
-   ============================================= */
+/* Utilities */
 .text-center { text-align: center; }
-.text-red { color: var(--red); }
-.text-gold { color: var(--gold); }
+.text-red { color: var(--red); text-shadow: 0 0 10px rgba(255,51,51,0.3); }
+.text-gold { color: var(--gold); text-shadow: 0 0 10px rgba(255,179,0,0.3); }
 .text-green { color: var(--green-fresh); }
 .text-mustard { color: var(--mustard); }
 
-/* =============================================
-   SCROLL REVEAL ANIMATION
-   ============================================= */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -320,9 +316,6 @@ section {
 .reveal.delay-3 { transition-delay: 0.15s; }
 .reveal.delay-4 { transition-delay: 0.2s; }
 
-/* =============================================
-   WAVE SVG SEPARATORS
-   ============================================= */
 .wave-separator {
   display: block;
   width: 100%;
@@ -330,50 +323,50 @@ section {
   margin-top: -1px;
 }
 
-/* =============================================
-   GLASSMORPHISM
-   ============================================= */
+/* Glassmorphism cards */
 .glass-card-premium {
-  background: rgba(255, 254, 252, 0.7);
+  background: rgba(25, 14, 35, 0.55);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow-card);
   transition: all var(--duration) var(--ease-out);
 }
 .glass-card-premium:hover {
-  background: rgba(255, 254, 252, 0.9);
+  background: rgba(35, 20, 48, 0.65);
   transform: translateY(-3px);
   box-shadow: var(--shadow-card-hover);
+  border-color: rgba(255, 179, 0, 0.2);
 }
 
 .glass-card-2026-dark {
-  background: rgba(42, 29, 23, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(18, 9, 26, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-lg);
   padding: 3rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   position: relative;
   z-index: 1;
 }
 
-/* =============================================
-   CUSTOM SCROLLBAR
-   ============================================= */
+/* Custom Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--cream); }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(212,168,85,0.4), rgba(212,168,85,0.8));
+  background: linear-gradient(180deg, rgba(255,179,0,0.2), rgba(255,179,0,0.6));
   border-radius: 10px;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--mustard); }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
-/* =============================================
-   DARK SECTION THEME
-   ============================================= */
+/* Dark themes */
 .theme-dark-grill {
-  background-color: var(--dark);
+  background-color: #09050d;
   color: var(--text-white);
+  background-image: radial-gradient(circle at 50% 0%, rgba(255, 51, 51, 0.12), transparent 60%);
+}
+
+.text-white-heading {
+  color: var(--text-white) !important;
 }
