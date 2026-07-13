@@ -67,9 +67,7 @@ import { heroSlides } from '../../data/menu';
     <div class="hero__visual">
       <div class="hero__img-wrap reveal delay-2">
         <div class="hero__img-glow"></div>
-        <div class="hero__img-placeholder">
-          <span class="material-symbols-rounded">lunch_dining</span>
-        </div>
+        <img src="/images/burger_local.webp" alt="La Mejor Hamburguesa de San Miguel" class="hero__img-real" />
       </div>
       <div class="hero__floating-card glass-card-premium reveal delay-4">
         <span class="material-symbols-rounded text-gold">trophy</span>
@@ -209,21 +207,18 @@ import { heroSlides } from '../../data/menu';
     animation: heroFloat 5s ease-in-out infinite;
   }
 
-  .hero__img-placeholder {
+  .hero__img-real {
     width: 450px; height: 450px; max-width: 100%;
-    border-radius: 50%;
-    background: radial-gradient(circle at 40% 40%, var(--cheese) 0%, var(--mustard) 40%, var(--ketchup) 80%, var(--red-dark) 100%);
-    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; object-fit: cover;
+    display: block; position: relative; z-index: 2;
+    border: 3px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 30px 80px rgba(198,40,40,0.25), 0 0 100px rgba(249,168,37,0.15);
     animation: cinematicKenBurns 18s ease-in-out infinite alternate;
-    transition: transform 0.6s var(--ease-out);
+    transition: transform 0.6s var(--ease-out), border-color 0.6s var(--ease-out);
   }
-  .hero__img-placeholder:hover {
+  .hero__img-real:hover {
     transform: scale(1.08) rotate(-1.5deg);
-  }
-  .hero__img-placeholder .material-symbols-rounded {
-    font-size: 8rem; color: rgba(255,255,255,0.3);
-    font-variation-settings: 'FILL' 1, 'wght' 200;
+    border-color: rgba(255, 179, 0, 0.4);
   }
 
   @keyframes cinematicKenBurns {

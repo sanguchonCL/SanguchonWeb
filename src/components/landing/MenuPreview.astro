@@ -16,9 +16,7 @@ import { menuItems } from '../../data/menu';
       {menuItems.map((item) => (
         <article class={`menu-card reveal delay-${item.id}`}>
           <div class="menu-card__img">
-            <div class="menu-card__img-placeholder">
-              <span class="material-symbols-rounded">lunch_dining</span>
-            </div>
+            <img src={item.image || "/images/burger_close.webp"} alt={item.title} class="menu-card__image" />
             {item.badge && <span class="menu-card__badge">{item.badge}</span>}
           </div>
           <div class="menu-card__body">
@@ -70,17 +68,12 @@ import { menuItems } from '../../data/menu';
     -webkit-mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
   }
 
-  .menu-card__img-placeholder {
-    width: 100%; height: 100%;
-    background: linear-gradient(135deg, var(--cream-warm) 0%, var(--tan) 50%, var(--mustard) 100%);
-    display: flex; align-items: center; justify-content: center;
+  .menu-card__image {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
     transition: transform 0.8s var(--ease-out);
   }
-  .menu-card__img-placeholder .material-symbols-rounded {
-    font-size: 4rem; color: rgba(255,255,255,0.5);
-    font-variation-settings: 'FILL' 1, 'wght' 200;
-  }
-  .menu-card:hover .menu-card__img-placeholder { transform: scale(1.04) rotate(0.5deg); }
+  .menu-card:hover .menu-card__image { transform: scale(1.06) rotate(1deg); }
 
   .menu-card__badge {
     position: absolute; top: 1.2rem; left: 1.2rem;

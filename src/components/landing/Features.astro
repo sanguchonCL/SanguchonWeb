@@ -32,9 +32,11 @@ import { features } from '../../data/menu';
 <style>
   .features {
     position: relative; overflow: hidden;
-    background-image: radial-gradient(circle at 50% 0%, rgba(198, 40, 40, 0.15), transparent 50%),
-                      radial-gradient(circle at 10% 90%, rgba(249, 168, 37, 0.08), transparent 40%),
-                      linear-gradient(180deg, var(--charcoal) 0%, var(--dark) 40%, var(--dark-card) 100%);
+    background-image: linear-gradient(180deg, rgba(9, 5, 12, 0.98) 0%, rgba(9, 5, 12, 0.82) 40%, rgba(9, 5, 12, 0.98) 100%),
+                      url('/images/terraza.webp');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
   }
 
   .features__glow-top {
@@ -58,9 +60,11 @@ import { features } from '../../data/menu';
     padding: 2rem 1.5rem;
     cursor: pointer;
     transition: all var(--duration) var(--ease-out);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(135deg, rgba(42,29,23,0.9) 0%, rgba(28,18,16,0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    background: rgba(22, 12, 31, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     display: flex; flex-direction: column; gap: 1.2rem;
     min-height: 280px;
   }
