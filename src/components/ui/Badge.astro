@@ -1,0 +1,14 @@
+---
+interface Props {
+  variant?: 'default' | 'dark';
+  icon?: string;
+}
+
+const { variant = 'default', icon } = Astro.props;
+const chipClass = variant === 'dark' ? 'chip chip--dark' : 'chip';
+---
+
+<span class={chipClass}>
+  {icon && <span class="material-symbols-rounded chip__icon">{icon}</span>}
+  <slot />
+</span>

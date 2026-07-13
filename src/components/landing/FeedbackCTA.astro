@@ -1,0 +1,85 @@
+---
+import { SITE_INFO } from '../../data/site-info';
+---
+
+<section id="feedback" class="feedback-section theme-dark-grill" style="padding: 6rem 0; position: relative;">
+  <div class="form-bg-pattern"></div>
+  <div class="form-glow"></div>
+
+  <div class="container form-container" style="max-width: 850px; margin: 0 auto;">
+    <!-- Heading -->
+    <div class="form-header reveal">
+      <span class="chip">
+        <span class="material-symbols-rounded chip__icon text-gold">local_fire_department</span>
+        Tu Opinión Cuenta
+      </span>
+      <h2 class="text-white-heading">Déjanos tu <span class="font-display text-gold">Feedback Celestial</span></h2>
+      <p class="form-header__sub">Ayúdanos a mantener el fuego sagrado de la parrilla de San Guchon dejándonos tus comentarios.</p>
+    </div>
+
+    <!-- Google Form Button -->
+    <div class="form-card glass-card-2026-dark reveal delay-2" style="text-align: center; padding: 4rem 2rem;">
+      <div class="form-card__icon">
+        <span class="material-symbols-rounded text-gold" style="font-size: 5rem;">assignment</span>
+      </div>
+
+      <h2 class="text-white-heading" style="margin-top: 1.5rem;">¡Queremos escucharte!</h2>
+
+      <p class="form-card__desc">
+        Hemos actualizado nuestra plataforma de feedback. Para dejarnos tus comentarios y ayudarnos a mejorar, por favor haz clic en el botón a continuación que te llevará a nuestro formulario oficial.
+      </p>
+
+      <div style="margin-top: 2rem;">
+        <a href={SITE_INFO.googleFormsUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg">
+          <span class="material-symbols-rounded">open_in_new</span>
+          Ir al Formulario de Google
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .feedback-section { position: relative; overflow: hidden; }
+
+  .form-bg-pattern {
+    position: absolute; inset: 0; z-index: 0; opacity: 0.05;
+    background-image:
+      radial-gradient(circle at 10% 30%, var(--gold) 1px, transparent 1px),
+      radial-gradient(circle at 80% 70%, var(--red) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .form-glow {
+    position: absolute; top: 40%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(249, 168, 37, 0.1) 0%, rgba(198, 40, 40, 0.04) 50%, transparent 80%);
+    border-radius: 50%; z-index: 0; pointer-events: none;
+  }
+
+  .form-header {
+    text-align: center; margin-bottom: 3rem;
+    position: relative; z-index: 1;
+  }
+  .form-header h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-top: 0.8rem; margin-bottom: 0.8rem;
+  }
+  .form-header__sub {
+    font-size: 1.1rem; max-width: 600px;
+    margin: 0 auto; line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .form-card__desc {
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7; margin-top: 1rem;
+    max-width: 550px; margin-inline: auto;
+  }
+
+  @media (max-width: 640px) {
+    .glass-card-2026-dark { padding: 2.2rem 1.2rem; }
+  }
+</style>

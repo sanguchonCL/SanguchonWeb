@@ -1,0 +1,190 @@
+---
+import { SITE_INFO } from '../../data/site-info';
+---
+
+<section id="nosotros" class="about">
+  <div class="container about__grid">
+    <div class="about__content reveal">
+      <span class="chip chip--dark">
+        <span class="material-symbols-rounded chip__icon">menu_book</span> Nuestra Historia
+      </span>
+      <h2>El Orgullo de <span class="font-display text-red">San Miguel</span></h2>
+      <p class="about__desc">San Guchon nació en el corazón de San Miguel con una misión clara: crear la mejor hamburguesa del barrio. Nos obsesiona la calidad, el sabor real y que cada visita sea inolvidable.</p>
+
+      <ul class="about__list">
+        <li class="reveal delay-1">
+          <span class="material-symbols-rounded about__check">whatshot</span>
+          Cocción al carbón real para una jugosidad que no se imita.
+        </li>
+        <li class="reveal delay-2">
+          <span class="material-symbols-rounded about__check">nutrition</span>
+          Ingredientes frescos del día, proveedores locales de San Miguel.
+        </li>
+        <li class="reveal delay-3">
+          <span class="material-symbols-rounded about__check">music_note</span>
+          Playlist curada, vibe premium y el mejor ambiente del barrio.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Location Panel -->
+    <div id="ubicacion" class="location-panel glass-card-premium reveal delay-2">
+      <div class="location-panel__header">
+        <span class="material-symbols-rounded text-red" style="font-size:2rem;">storefront</span>
+        <div>
+          <h3>San Miguel, Santiago</h3>
+          <p>Ven a conocer la mejor hamburguesa del barrio.</p>
+        </div>
+      </div>
+
+      <div class="location-panel__map">
+        <a href={SITE_INFO.googleMapsUrl} target="_blank" rel="noopener noreferrer" class="location-panel__map-link">
+          <div class="location-panel__map-placeholder">
+            <span class="material-symbols-rounded">map</span>
+            <span>San Nicolás 1390</span>
+          </div>
+          <div class="location-panel__map-overlay">
+            <span class="btn btn-primary btn-sm"><span class="material-symbols-rounded">navigation</span> Abrir en Google Maps</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="location-panel__info">
+        <div class="info-row">
+          <span class="material-symbols-rounded info-row__icon">place</span>
+          <div>
+            <strong>Dirección</strong>
+            <p>{SITE_INFO.address}</p>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="material-symbols-rounded info-row__icon">schedule</span>
+          <div>
+            <strong>Horario</strong>
+            <p>{SITE_INFO.schedule}</p>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="material-symbols-rounded info-row__icon">call</span>
+          <div>
+            <strong>Reservas</strong>
+            <p>{SITE_INFO.phone}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+
+  .about__desc {
+    color: var(--text-body); font-size: 1.05rem; margin-top: 1rem;
+  }
+
+  .about__list {
+    display: flex; flex-direction: column; gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .about__list li {
+    display: flex; align-items: center; gap: 0.9rem;
+    font-weight: 700; font-size: 1rem; color: var(--text-dark);
+  }
+  .about__check {
+    background: linear-gradient(135deg, var(--ketchup), var(--mustard));
+    color: var(--text-white) !important;
+    font-size: 1rem !important;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(198, 40, 40, 0.35);
+    flex-shrink: 0;
+    transition: transform 0.3s var(--ease-spring);
+  }
+  .about__list li:hover .about__check {
+    transform: scale(1.15) rotate(15deg);
+  }
+
+  /* Location Panel */
+  .location-panel {
+    border-radius: var(--radius-xl); padding: 2.5rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .location-panel__header {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .location-panel__header h3 { margin: 0; }
+  .location-panel__header p { color: var(--text-body); font-size: 0.92rem; }
+
+  .location-panel__map {
+    width: 100%; height: 280px;
+    background: var(--cream-warm);
+    border-radius: var(--radius-md);
+    position: relative; margin-bottom: 2rem; overflow: hidden;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .location-panel__map-link {
+    display: block; width: 100%; height: 100%; position: relative;
+  }
+
+  .location-panel__map-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--cream-warm) 50%, var(--tan) 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.5rem; color: var(--text-light);
+    transition: transform 0.6s var(--ease-out);
+  }
+  .location-panel__map-placeholder .material-symbols-rounded {
+    font-size: 3rem; color: var(--ketchup); opacity: 0.6;
+  }
+  .location-panel__map-placeholder span:last-child {
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .location-panel__map-overlay {
+    position: absolute; inset: 0;
+    background: rgba(28, 18, 16, 0.4);
+    display: flex; align-items: center; justify-content: center;
+    border-radius: var(--radius-md);
+    opacity: 0; transition: opacity 0.4s var(--ease-out);
+  }
+
+  .location-panel__map:hover .location-panel__map-placeholder { transform: scale(1.05); }
+  .location-panel__map:hover .location-panel__map-overlay { opacity: 1; }
+
+  .location-panel__info { display: flex; flex-direction: column; gap: 1.1rem; }
+
+  .info-row {
+    display: flex; align-items: center; gap: 1.2rem;
+    padding: 1rem 1.4rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(212, 168, 85, 0.15);
+    box-shadow: 0 4px 15px rgba(60, 30, 10, 0.01);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .info-row:hover {
+    background: var(--white);
+    transform: translateX(6px);
+    border-color: rgba(249, 168, 37, 0.4);
+    box-shadow: 0 8px 24px rgba(212, 168, 85, 0.14);
+  }
+  .info-row__icon {
+    color: var(--ketchup); font-size: 1.5rem; flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+  .info-row:hover .info-row__icon { transform: scale(1.2); }
+  .info-row p { font-size: 0.92rem; color: var(--text-body); }
+  .info-row strong { font-weight: 800; color: var(--text-dark); display: block; margin-bottom: 0.1rem; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .about__grid { grid-template-columns: 1fr; gap: 3rem; }
+  }
+</style>

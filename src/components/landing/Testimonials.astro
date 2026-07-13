@@ -1,0 +1,122 @@
+---
+import { testimonials } from '../../data/menu';
+---
+
+<section id="opiniones" class="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="chip chip--dark">
+        <span class="material-symbols-rounded chip__icon">reviews</span> San Miguel Opina
+      </span>
+      <h2>Lo Que Dicen <span class="font-display text-red">Nuestros Fans</span></h2>
+    </div>
+  </div>
+
+  <div class="testimonials__marquee">
+    <div class="testimonials__track">
+      {/* Triple duplication for seamless loop */}
+      {[...testimonials, ...testimonials, ...testimonials].map((t, i) => (
+        <div class="testimonial-card" aria-hidden={i >= testimonials.length ? 'true' : undefined}>
+          <div class="testimonial-card__header">
+            <div class="testimonial-card__avatar">{t.name.charAt(0)}</div>
+            <div>
+              <span class="testimonial-card__name">{t.name}</span>
+              <span class="testimonial-card__location">San Miguel, Chile</span>
+            </div>
+          </div>
+          <div class="testimonial-card__stars">
+            {Array(t.rating).fill(0).map(() => (
+              <span class="material-symbols-rounded">star</span>
+            ))}
+          </div>
+          <p class="testimonial-card__text">&ldquo;{t.text}&rdquo;</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    background: var(--cream);
+    overflow: hidden;
+  }
+
+  .testimonials__marquee {
+    width: 100%; overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+
+  .testimonials__track {
+    display: flex; gap: 1.5rem;
+    width: max-content;
+    animation: marqueeScroll 30s linear infinite;
+  }
+
+  .testimonials__marquee:hover .testimonials__track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.33%); }
+  }
+
+  .testimonial-card {
+    flex-shrink: 0; width: 380px;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-warm);
+    transition: all 0.4s var(--ease-out);
+  }
+  .testimonial-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--mustard);
+  }
+
+  .testimonial-card__header {
+    display: flex; align-items: center;
+    gap: 0.8rem; margin-bottom: 1rem;
+  }
+
+  .testimonial-card__avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--ketchup), var(--mustard));
+    color: var(--text-white);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-brand);
+    font-size: 1.3rem; flex-shrink: 0;
+    box-shadow: 0 4px 12px var(--red-glow);
+  }
+
+  .testimonial-card__name {
+    font-weight: 800; font-size: 1rem;
+    color: var(--text-dark); display: block;
+  }
+  .testimonial-card__location {
+    font-size: 0.8rem; color: var(--text-light); display: block;
+  }
+
+  .testimonial-card__stars {
+    display: flex; gap: 0.2rem; margin-bottom: 0.8rem;
+  }
+  .testimonial-card__stars .material-symbols-rounded {
+    font-size: 1.1rem; color: var(--mustard);
+    font-variation-settings: 'FILL' 1;
+  }
+
+  .testimonial-card__text {
+    font-size: 0.95rem; line-height: 1.7;
+    color: var(--text-body); font-style: italic;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .testimonial-card { width: 280px; padding: 1.5rem; }
+    .testimonials__track { animation-duration: 22s; }
+  }
+</style>

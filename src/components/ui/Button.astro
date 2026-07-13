@@ -1,0 +1,33 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'outline' | 'outline-light';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  icon?: string;
+  class?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  icon,
+  class: className = '',
+} = Astro.props;
+
+const sizeClass = size === 'lg' ? 'btn-lg' : size === 'sm' ? 'btn-sm' : '';
+const variantClass = `btn-${variant}`;
+const classes = `btn ${variantClass} ${sizeClass} ${className}`.trim();
+---
+
+{href ? (
+  <a href={href} class={classes}>
+    {icon && <span class="material-symbols-rounded">{icon}</span>}
+    <slot />
+  </a>
+) : (
+  <button class={classes}>
+    {icon && <span class="material-symbols-rounded">{icon}</span>}
+    <slot />
+  </button>
+)}

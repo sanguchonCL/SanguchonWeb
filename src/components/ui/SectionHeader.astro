@@ -1,0 +1,40 @@
+---
+interface Props {
+  chip?: string;
+  chipIcon?: string;
+  chipVariant?: 'default' | 'dark';
+  highlight?: string;
+  subtitle?: string;
+  light?: boolean;
+}
+
+const {
+  chip,
+  chipIcon,
+  chipVariant = 'default',
+  highlight,
+  subtitle,
+  light = false,
+} = Astro.props;
+
+const headerClass = `section-header ${light ? 'section-header--light' : ''} reveal`;
+const subClass = light ? 'section-header__sub--light' : 'section-header__sub';
+---
+
+<div class={headerClass}>
+  {chip && (
+    <span class={chipVariant === 'dark' ? 'chip chip--dark' : 'chip'}>
+      {chipIcon && <span class="material-symbols-rounded chip__icon">{chipIcon}</span>}
+      {chip}
+    </span>
+  )}
+  <h2>
+    <slot />
+    {highlight && (
+      <>
+        {' '}<span class={`font-display ${light ? 'text-gold' : 'text-red'}`}>{highlight}</span>
+      </>
+    )}
+  </h2>
+  {subtitle && <p class={subClass}>{subtitle}</p>}
+</div>

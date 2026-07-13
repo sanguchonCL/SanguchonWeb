@@ -1,0 +1,278 @@
+---
+import { SITE_INFO } from '../data/site-info';
+import logoSanGuchon from '../assets/logo-san-guchon.svg';
+
+const navLinks = [
+  { label: 'Inicio', href: '#inicio' },
+  { label: 'Especialidades', href: '#especialidades' },
+  { label: 'Nosotros', href: '#nosotros' },
+  { label: '¿Por Qué?', href: '#porqueelegirnos' },
+  { label: 'Feedback', href: '#feedback' },
+];
+---
+
+<header class="navbar" id="navbar">
+  <div class="container navbar__inner">
+    <a href="#inicio" class="navbar__logo" aria-label="Ir al inicio">
+      <img src={logoSanGuchon.src} alt="San Guchon Logo" class="navbar__logo-img" />
+      <span class="navbar__logo-text">SAN<span class="navbar__logo-accent">GUCHON</span></span>
+    </a>
+
+    <!-- Mobile overlay backdrop -->
+    <div class="navbar__overlay" id="navOverlay"></div>
+
+    <nav class="navbar__links" id="navLinks" role="navigation">
+      <!-- Mobile logo inside menu -->
+      <div class="navbar__mobile-header">
+        <img src={logoSanGuchon.src} alt="San Guchon Logo" class="navbar__logo-img" />
+        <span class="navbar__logo-text">SAN<span class="navbar__logo-accent">GUCHON</span></span>
+      </div>
+
+      <div class="navbar__mobile-links">
+        {navLinks.map((link) => (
+          <a href={link.href} class="nav-link">{link.label}</a>
+        ))}
+      </div>
+
+      <!-- Mobile Socials -->
+      <div class="navbar__mobile-socials">
+        <a href={SITE_INFO.instagramUrl} target="_blank" aria-label="Instagram" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href={SITE_INFO.tiktokUrl} aria-label="TikTok" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.18 8.18 0 0 0 4.76 1.52V6.77a4.83 4.83 0 0 1-1-.08z"/></svg>
+        </a>
+      </div>
+    </nav>
+
+    <div class="navbar__actions">
+      <button class="navbar__burger" id="navBurger" aria-label="Menú" aria-expanded="false">
+        <span class="material-symbols-rounded" id="burgerIcon">menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* ===== NAVBAR ===== */
+  .navbar {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    padding: 1.5rem 0;
+    transition: all 0.4s var(--ease-out);
+  }
+
+  .navbar.scrolled {
+    background: rgba(28, 18, 16, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 0.8rem 0;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .navbar__inner {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .navbar__logo {
+    display: flex; align-items: center; gap: 0.75rem;
+    text-decoration: none; z-index: 1001;
+  }
+
+  .navbar__logo-img {
+    height: 46px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+    transition: transform 0.4s var(--ease-spring);
+  }
+
+  .navbar__logo:hover .navbar__logo-img {
+    transform: scale(1.15) rotate(6deg);
+  }
+
+  .navbar__logo-text {
+    font-family: 'Lilita One', 'Outfit', sans-serif;
+    font-size: 1.8rem; font-weight: 400; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-dark);
+    transition: color 0.3s ease;
+  }
+
+  .navbar.scrolled .navbar__logo-text { color: var(--text-white); }
+
+  .navbar__logo-accent {
+    background: linear-gradient(135deg, var(--ketchup), var(--mustard));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .navbar__links { display: flex; gap: 2rem; }
+
+  .navbar__links a.nav-link {
+    font-weight: 600; font-size: 0.95rem; color: var(--text-dark);
+    position: relative; padding-bottom: 4px;
+    transition: color 0.3s ease;
+  }
+
+  .navbar.scrolled .navbar__links a.nav-link { color: rgba(255, 255, 255, 0.85); }
+
+  .navbar__links a.nav-link::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2.5px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--ketchup), var(--mustard));
+    transition: width 0.35s var(--ease-out);
+  }
+
+  .navbar__links a.nav-link:hover { color: var(--ketchup); }
+  .navbar.scrolled .navbar__links a.nav-link:hover { color: var(--gold); }
+  .navbar__links a.nav-link:hover::after { width: 100%; }
+
+  .navbar__actions { display: flex; align-items: center; gap: 1rem; }
+
+  .navbar__burger {
+    display: none; background: none; border: none;
+    color: var(--text-dark); padding: 0.4rem;
+  }
+  .navbar__burger .material-symbols-rounded { font-size: 1.8rem; }
+  .navbar.scrolled .navbar__burger { color: var(--text-white); }
+
+  /* Mobile-only elements hidden on desktop */
+  .navbar__overlay { display: none; }
+  .navbar__mobile-header { display: none; }
+  .navbar__mobile-socials { display: none; }
+  .navbar__mobile-links { display: contents; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .navbar__burger {
+      display: flex; z-index: 1001;
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      background: rgba(28,18,16,0.05);
+      border: 1px solid var(--border-warm);
+      align-items: center; justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .navbar__burger:hover { background: var(--cream-warm); }
+
+    .navbar__overlay {
+      display: block; position: fixed; inset: 0;
+      background: rgba(28,18,16,0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 998; opacity: 0; visibility: hidden;
+      transition: all 0.4s var(--ease-out);
+    }
+    .navbar__overlay.open { opacity: 1; visibility: visible; }
+
+    .navbar__links {
+      position: fixed; top: 0; right: -100%;
+      width: 85%; max-width: 400px;
+      height: 100vh; height: 100dvh;
+      background: var(--cream);
+      flex-direction: column; padding: 0; gap: 0;
+      box-shadow: -20px 0 60px rgba(28,18,16,0.15);
+      transition: right 0.5s var(--ease-out);
+      z-index: 999; overflow-y: auto;
+      display: flex; justify-content: flex-start;
+    }
+    .navbar__links.open { right: 0; }
+
+    .navbar__mobile-header {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 1.8rem 2rem 1.5rem;
+      border-bottom: 1px solid var(--border-warm);
+    }
+    .navbar__mobile-header .navbar__logo-text { color: var(--text-dark) !important; }
+
+    .navbar__mobile-links {
+      display: flex; flex-direction: column;
+      padding: 1rem 0; flex: 1;
+    }
+
+    .navbar__mobile-links a.nav-link {
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--text-dark) !important;
+      padding: 1.1rem 2rem;
+      border-bottom: 1px solid rgba(232,201,160,0.2);
+      transition: all 0.3s ease; position: relative;
+      opacity: 0; transform: translateX(30px);
+    }
+    .navbar__mobile-links a.nav-link::after { display: none; }
+
+    .navbar__links.open .navbar__mobile-links a.nav-link {
+      opacity: 1; transform: translateX(0);
+    }
+    .navbar__links.open .navbar__mobile-links a.nav-link:nth-child(1) { transition-delay: 0.05s; }
+    .navbar__links.open .navbar__mobile-links a.nav-link:nth-child(2) { transition-delay: 0.10s; }
+    .navbar__links.open .navbar__mobile-links a.nav-link:nth-child(3) { transition-delay: 0.15s; }
+    .navbar__links.open .navbar__mobile-links a.nav-link:nth-child(4) { transition-delay: 0.20s; }
+    .navbar__links.open .navbar__mobile-links a.nav-link:nth-child(5) { transition-delay: 0.25s; }
+
+    .navbar__mobile-links a.nav-link:hover,
+    .navbar__mobile-links a.nav-link:active {
+      background: rgba(212,168,85,0.08);
+      color: var(--ketchup) !important;
+      padding-left: 2.5rem;
+    }
+
+    .navbar__mobile-socials {
+      display: flex; justify-content: center; gap: 1rem;
+      padding: 1.2rem 2rem 2rem;
+      border-top: 1px solid var(--border-warm);
+    }
+    .navbar__mobile-socials a {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(28,18,16,0.05);
+      border: 1px solid var(--border-warm);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-body); transition: all 0.3s ease;
+    }
+    .navbar__mobile-socials a:hover {
+      background: linear-gradient(135deg, var(--ketchup), var(--mustard));
+      color: var(--text-white); border-color: transparent;
+      transform: translateY(-2px);
+    }
+  }
+</style>
+
+<script>
+  // Scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (navbar) {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }
+  });
+
+  // Mobile menu toggle
+  const burger = document.getElementById('navBurger');
+  const navLinks = document.getElementById('navLinks');
+  const overlay = document.getElementById('navOverlay');
+  const burgerIcon = document.getElementById('burgerIcon');
+
+  function toggleMenu() {
+    const isOpen = navLinks?.classList.toggle('open');
+    overlay?.classList.toggle('open');
+    burger?.setAttribute('aria-expanded', String(isOpen));
+    if (burgerIcon) burgerIcon.textContent = isOpen ? 'close' : 'menu';
+  }
+
+  function closeMenu() {
+    navLinks?.classList.remove('open');
+    overlay?.classList.remove('open');
+    burger?.setAttribute('aria-expanded', 'false');
+    if (burgerIcon) burgerIcon.textContent = 'menu';
+  }
+
+  burger?.addEventListener('click', toggleMenu);
+  overlay?.addEventListener('click', closeMenu);
+
+  // Close menu on nav link click + smooth scroll
+  document.querySelectorAll('.nav-link').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      closeMenu();
+    });
+  });
+</script>
