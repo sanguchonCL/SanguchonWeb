@@ -38,24 +38,30 @@ import { SITE_INFO } from '../../data/site-info';
       </div>
 
       <div class="location-panel__map">
-        <a href={SITE_INFO.googleMapsUrl} target="_blank" rel="noopener noreferrer" class="location-panel__map-link">
-          <div class="location-panel__map-placeholder">
-            <span class="material-symbols-rounded">map</span>
-            <span>San Nicolás 1390</span>
-          </div>
-          <div class="location-panel__map-overlay">
-            <span class="btn btn-primary btn-sm"><span class="material-symbols-rounded">navigation</span> Abrir en Google Maps</span>
-          </div>
-        </a>
+        <iframe
+          src={SITE_INFO.googleMapsIframeUrl}
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          title="Ubicación de San Guchón en Google Maps"
+        ></iframe>
       </div>
 
       <div class="location-panel__info">
-        <div class="info-row">
-          <span class="material-symbols-rounded info-row__icon">place</span>
-          <div>
-            <strong>Dirección</strong>
-            <p>{SITE_INFO.address}</p>
+        <div class="info-row" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+          <div style="display: flex; align-items: center; gap: 1.2rem;">
+            <span class="material-symbols-rounded info-row__icon">place</span>
+            <div>
+              <strong>Dirección</strong>
+              <p>{SITE_INFO.address}</p>
+            </div>
           </div>
+          <a href={SITE_INFO.googleMapsUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="text-decoration: none;">
+            <span class="material-symbols-rounded">navigation</span> Cómo Llegar
+          </a>
         </div>
         <div class="info-row">
           <span class="material-symbols-rounded info-row__icon">schedule</span>
