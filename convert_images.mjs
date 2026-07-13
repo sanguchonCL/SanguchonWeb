@@ -16,7 +16,8 @@ async function convert() {
   for (const f of files) {
     try {
       await sharp(f.in)
-        .webp({ quality: 80 })
+        .resize({ width: 2160, withoutEnlargement: false })
+        .webp({ quality: 95 })
         .toFile(f.out);
       console.log('Converted: ' + f.out);
     } catch (err) {

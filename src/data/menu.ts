@@ -58,7 +58,7 @@ export const menuItems: MenuItem[] = [
     description:
       "Carne Angus 100% a la parrilla, queso cheddar fundido, salsas secretas de la casa. La razón por la que San Miguel habla de nosotros.",
     price: "$6.990",
-    image: "/images/category-burgers.webp",
+    image: "/images/burger_close.webp",
     badge: "🔥 #1 en San Miguel",
   },
   {
@@ -67,7 +67,7 @@ export const menuItems: MenuItem[] = [
     description:
       "Papas rústicas con cheddar y tocino, aros de cebolla XXL y nuggets artesanales que no encontrarás en otro lado.",
     price: "$2.990",
-    image: "/images/category-sides.webp",
+    image: "/images/burger_local.webp",
   },
   {
     id: 3,
@@ -75,7 +75,7 @@ export const menuItems: MenuItem[] = [
     description:
       "Milkshakes coronados con crema, limonadas artesanales y bebidas heladas que complementan cada mordida.",
     price: "$3.490",
-    image: "/images/category-drinks.webp",
+    image: "/images/local_noche.webp",
     badge: "✨ Nuevo",
   },
 ];

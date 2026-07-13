@@ -14,15 +14,15 @@
   --color-gold-light: #FFE082;
   --color-mustard: #E6A817;
   --color-cheese: #FFCA28;
-  --color-cream: #0c0813;
-  --color-cream-warm: #180e22;
-  --color-tan: #301b40;
-  --color-sesame: #FFF3E0;
-  --color-dark-sanguchon: #09050d;
-  --color-dark-card: rgba(22, 12, 31, 0.65);
-  --color-dark-soft: rgba(38, 22, 54, 0.7);
-  --color-charcoal: #09050c;
-  --color-smoke: #251631;
+  --color-cream: #FFFAFA;
+  --color-cream-warm: #FFF6EC;
+  --color-tan: #FFEED9;
+  --color-sesame: #FFFBF5;
+  --color-dark-sanguchon: #1A110D;
+  --color-dark-card: rgba(255, 255, 255, 0.95);
+  --color-dark-soft: rgba(255, 255, 255, 0.7);
+  --color-charcoal: #2C1E16;
+  --color-smoke: #FDF7F2;
   --color-green-fresh: #66BB6A;
   --color-green-deep: #43A047;
 
@@ -46,35 +46,35 @@
   --mustard: #E6A817;
   --cheese: #FFCA28;
 
-  /* Space Background Tones */
-  --cream: #0c0813;
-  --cream-warm: #180e22;
-  --tan: #301b40;
-  --sesame: #FFF3E0;
+  /* Minimalist Foodie Background Tones */
+  --cream: #FFFAFA;
+  --cream-warm: #FFF6EC;
+  --tan: #FFEED9;
+  --sesame: #FFFBF5;
   --bun-golden: #FFCA28;
   --bun-crust: #FF8F00;
 
-  --dark: #09050d;
-  --dark-card: rgba(22, 12, 31, 0.65);
-  --dark-soft: rgba(38, 22, 54, 0.7);
-  --charcoal: #09050c;
-  --smoke: #251631;
+  --dark: #1A110D;
+  --dark-card: rgba(255, 255, 255, 0.95);
+  --dark-soft: rgba(255, 255, 255, 0.7);
+  --charcoal: #2C1E16;
+  --smoke: #FDF7F2;
 
   --green-fresh: #66BB6A;
   --green-deep: #43A047;
 
-  /* Text Colors optimized for Spatial Dark Theme */
-  --text-dark: #FFFFFF;
-  --text-body: #E0D4EC;
-  --text-light: #BCAECB;
+  /* Text Colors optimized for Minimalist Light Theme */
+  --text-dark: #1A110D;
+  --text-body: #4A3B32;
+  --text-light: #8C7365;
   --text-white: #FFFFFF;
-  --text-muted: rgba(230, 220, 245, 0.6);
+  --text-muted: rgba(74, 59, 50, 0.6);
 
-  /* Glassmorphism settings */
-  --white: rgba(25, 14, 35, 0.55);
-  --border: rgba(255, 255, 255, 0.08);
-  --border-light: rgba(255, 255, 255, 0.12);
-  --border-warm: rgba(255, 179, 0, 0.15);
+  /* Minimalist Glassmorphism settings */
+  --white: rgba(255, 255, 255, 0.85);
+  --border: rgba(0, 0, 0, 0.05);
+  --border-light: rgba(0, 0, 0, 0.03);
+  --border-warm: rgba(230, 168, 23, 0.2);
 
   /* Typography */
   --font-body: 'Outfit', system-ui, sans-serif;
@@ -84,12 +84,12 @@
   /* Spacing */
   --section-py: clamp(4rem, 8vw, 7rem);
 
-  /* Shadows and Cosmic Glows */
-  --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  --shadow-card-hover: 0 20px 50px rgba(255, 51, 51, 0.1), 0 0 30px rgba(255, 179, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  --shadow-float: 0 24px 60px rgba(0, 0, 0, 0.6);
-  --shadow-btn: 0 0 20px var(--red-glow);
-  --shadow-warm: 0 0 30px rgba(255, 179, 0, 0.15);
+  /* Soft Minimalist Shadows */
+  --shadow-card: 0 10px 40px rgba(74, 59, 50, 0.08), 0 1px 3px rgba(74, 59, 50, 0.05);
+  --shadow-card-hover: 0 20px 50px rgba(198, 40, 40, 0.08), 0 0 30px rgba(249, 168, 37, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --shadow-float: 0 24px 60px rgba(74, 59, 50, 0.12);
+  --shadow-btn: 0 8px 20px rgba(255, 51, 51, 0.2);
+  --shadow-warm: 0 8px 30px rgba(255, 179, 0, 0.12);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -156,8 +156,7 @@ h1, h2, h3, h4 {
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0;
-  color: #FFFFFF;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  color: var(--text-dark);
 }
 h1 { font-size: clamp(2.6rem, 5.5vw, 4.5rem); }
 h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
@@ -248,7 +247,7 @@ section {
 .btn-sm { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
 
 .material-symbols-rounded {
-  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
   vertical-align: middle;
 }
 
