@@ -16,6 +16,7 @@ const mapOptions = { gestureHandling: "greedy" as const };
         src={`${SITE_INFO.googleMapsIframeUrl}&gesture_handling=greedy`}
         data-gesture-handling={mapOptions.gestureHandling}
         loading="lazy"
+        allow="fullscreen"
         allowfullscreen
         referrerpolicy="no-referrer-when-downgrade"></iframe>
       <div
