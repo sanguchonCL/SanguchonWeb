@@ -13,7 +13,7 @@ export const SITE_INFO = {
   googleMapsIframeUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d106468.94341142109!2d-70.6601967!3d-33.4973577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662db0040283087%3A0x6c5e5c69ef438049!2sSan%20Guchon!5e0!3m2!1ses!2scl!4v1783903963891!5m2!1ses!2scl",
   googleMapsUrl:
-    "https://www.google.com/maps/dir/?api=1&destination=San+Guchon,+San+Nicol%C3%A1s+1390,+San+Miguel&destination_place_id=ChIJhzAgQADbYpYRSY9D72VcXmw",
+    "https://www.google.com/maps/search/?api=1&query=San+Guchon+-+San+Nicol%C3%A1s+1390%2C+8920057+San+Miguel%2C+Regi%C3%B3n+Metropolitana",
   instagramUrl: "https://www.instagram.com/sanguchoncl/",
   menuUrl: "/menu-san-guchon.pdf",
   linkedinUrl:
