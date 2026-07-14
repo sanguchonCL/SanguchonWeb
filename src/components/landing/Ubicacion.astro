@@ -1,0 +1,48 @@
+---
+import { SITE_INFO } from "../../data/site-info";
+const mapOptions = { gestureHandling: "greedy" as const };
+---
+
+<section id="ubicacion" class="bg-canvas py-5 text-ink sm:py-8">
+  <div
+    class="container grid overflow-hidden rounded-[1.5rem] bg-surface-raised shadow-[0_20px_55px_rgb(34_15_7/.1)] ring-1 ring-line lg:grid-cols-[1.15fr_.85fr]"
+  >
+    <div
+      class="relative min-h-80 overflow-hidden bg-charcoal saturate-[.8] contrast-[1.08] lg:min-h-[30rem]"
+    >
+      <iframe
+        class="absolute inset-0 h-full w-full touch-pan-x touch-pan-y opacity-90"
+        title="Ubicación de San Guchon"
+        src={`${SITE_INFO.googleMapsIframeUrl}&gesture_handling=greedy`}
+        data-gesture-handling={mapOptions.gestureHandling}
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div
+        class="pointer-events-none absolute inset-0 bg-fire/10 mix-blend-multiply"
+      >
+      </div>
+    </div>
+    <div class="flex min-h-80 flex-col justify-between p-7 sm:p-10">
+      <div>
+        <p class="text-[0.65rem] font-bold uppercase tracking-[.2em] text-fire">
+          Punto de encuentro
+        </p>
+        <h2 class="mt-5 font-display text-5xl leading-[.85]">
+          SAN<br />MIGUEL.
+        </h2>
+      </div>
+      <div class="mt-10 border-t border-line pt-5">
+        <p class="text-sm font-medium">San Nicolás 1390, San Miguel</p>
+        <p class="mt-2 text-sm text-muted">Santiago, Chile</p>
+        <a
+          href={SITE_INFO.googleMapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-6 inline-flex items-center gap-2 rounded-full bg-fire px-5 py-3 text-xs font-bold uppercase tracking-[.15em] text-white transition hover:-translate-y-0.5 hover:bg-fire-bright"
+          >Cómo llegar <span aria-hidden="true">↗</span></a
+        >
+      </div>
+    </div>
+  </div>
+</section>

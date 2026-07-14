@@ -4,6 +4,7 @@ export interface MenuItem {
   id: number;
   title: string;
   description: string;
+  includes?: string;
   price: string;
   image: string;
   badge?: string;
@@ -28,6 +29,7 @@ export interface HeroSlide {
   heading: string;
   highlight: string;
   sub: string;
+  image: string;
 }
 
 export const heroSlides: HeroSlide[] = [
@@ -36,47 +38,53 @@ export const heroSlides: HeroSlide[] = [
     heading: "La Mejor",
     highlight: "Hamburguesa",
     sub: "de San Miguel",
+    image: "/images/products/burger-close.webp",
   },
   {
     tagline: "🔥 Sabor que Enamora",
     heading: "Donde Cada",
     highlight: "Mordida",
     sub: "es Leyenda",
+    image: "/images/venue/burger-local.webp",
   },
   {
     tagline: "🥩 Carne Premium",
     heading: "Angus 100%",
     highlight: "Pura & Real",
     sub: "a la Parrilla",
+    image: "/images/venue/terraza.webp",
   },
 ];
 
 export const menuItems: MenuItem[] = [
   {
     id: 1,
-    title: "Hamburguesas de Autor",
+    title: "La Bendita",
     description:
-      "Carne Angus 100% a la parrilla, queso cheddar fundido, salsas secretas de la casa. La razón por la que San Miguel habla de nosotros.",
-    price: "$6.990",
-    image: "/images/burger_close.webp",
-    badge: "🔥 #1 en San Miguel",
+      "Pan brioche, carne de 120 g, cheddar, tomate, lechuga, cebolla morada, pepinillos y salsa bendita.",
+    includes: "Incluye papas fritas",
+    price: "$6.000",
+    image: "/images/products/labendita.webp",
+    badge: "La favorita",
   },
   {
     id: 2,
-    title: "Acompañamientos Brutales",
+    title: "La Tentación",
     description:
-      "Papas rústicas con cheddar y tocino, aros de cebolla XXL y nuggets artesanales que no encontrarás en otro lado.",
-    price: "$2.990",
-    image: "/images/burger_local.webp",
+      "Pan de papa, carne de 120 g, doble cheddar, tocino y nuestra salsa celestial.",
+    includes: "Incluye papas fritas",
+    price: "$6.000",
+    image: "/images/products/hamburguesas.webp",
   },
   {
     id: 3,
-    title: "Bebidas & Shakes",
+    title: "Pecado Capital",
     description:
-      "Milkshakes coronados con crema, limonadas artesanales y bebidas heladas que complementan cada mordida.",
-    price: "$3.490",
-    image: "/images/local_noche.webp",
-    badge: "✨ Nuevo",
+      "Pan brioche, carne de 120 g, doble cheddar, tocino, cebolla crispy y salsa bendita.",
+    includes: "Incluye papas fritas",
+    price: "$7.000",
+    image: "/images/products/pecado-capital.webp",
+    badge: "Más intensa",
   },
 ];
 
@@ -121,13 +129,13 @@ export const testimonials: TestimonialItem[] = [
   {
     id: 2,
     name: "Matías P.",
-    text: "Llevé a mi familia y todos quedaron locos. Las papas rústicas son adictivas y el milkshake de Oreo es legendario. San Guchon es imperdible.",
+    text: "Llevé a mi familia y todos quedaron locos. Las papas rústicas son adictivas y el milkshake de Oreo es legendario. Sanguchon es imperdible.",
     rating: 5,
   },
   {
     id: 3,
     name: "Sofía L.",
-    text: "Vivo en San Miguel y probé de todo, pero San Guchon está en otro planeta. Fui por curiosidad y ahora voy cada fin de semana. 100% recomendado.",
+    text: "Vivo en San Miguel y probé de todo, pero Sanguchon está en otro planeta. Fui por curiosidad y ahora voy cada fin de semana. 100% recomendado.",
     rating: 5,
   },
 ];

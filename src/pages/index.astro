@@ -1,41 +1,28 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Navbar from '../components/Navbar.astro';
-import Hero from '../components/landing/Hero.astro';
-import MenuPreview from '../components/landing/MenuPreview.astro';
-import About from '../components/landing/About.astro';
-import Features from '../components/landing/Features.astro';
-import Testimonials from '../components/landing/Testimonials.astro';
-import OrderCTA from '../components/landing/OrderCTA.astro';
-import FeedbackCTA from '../components/landing/FeedbackCTA.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Splash from "../components/Splash.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/landing/Hero.astro";
+import BestSellers from "../components/landing/BestSellers.astro";
+import SeccionSantoral from "../components/react/SeccionSantoral.tsx";
+import Anatomia from "../components/landing/Anatomia.astro";
+import Historia from "../components/landing/Historia.astro";
+import FeedbackCTA from "../components/landing/FeedbackCTA.astro";
+import Ubicacion from "../components/landing/Ubicacion.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <BaseLayout>
+  <Splash />
   <Navbar />
-  <Hero />
-  <MenuPreview />
-  <About />
-  <Features />
-  <Testimonials />
-  <OrderCTA />
-  <FeedbackCTA />
+  <main>
+    <Hero />
+    <BestSellers />
+    <Anatomia />
+    <SeccionSantoral client:load />
+    <Historia />
+    <Ubicacion />
+    <FeedbackCTA />
+  </main>
   <Footer />
 </BaseLayout>
-
-<!-- Scroll Reveal Observer -->
-<script>
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-  );
-
-  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-</script>
