@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import { SITE_INFO } from '../data/site-info';
+
+interface Props { title?: string; description?: string; }
+const {
+  title = `${SITE_INFO.name} | Fuego real en San Miguel`,
+  description = SITE_INFO.description,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#100d0b" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <!-- Dark-only brand: set before paint to avoid any light-theme flash. -->
+    <script is:inline>
+      (() => {
+        document.documentElement.dataset.theme = 'dark';
+      })();
+    </script>
+
+    <script is:inline>
+      (() => {
+        if ('scrollRestoration' in history) {
+          history.scrollRestoration = 'manual';
+        }
+
+        const navigationEntry = performance.getEntriesByType('navigation')[0];
+        const isReload =
+          navigationEntry?.type === 'reload' ||
+          performance.navigation?.type === 1;
+
+        const resetToTop = () => {
+          if (window.location.hash) {
+            history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+          }
+
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+          window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        };
+
+        const runReset = () => {
+          requestAnimationFrame(() => {
+            resetToTop();
+            requestAnimationFrame(resetToTop);
+          });
+        };
+
+        if (isReload) {
+          runReset();
+        }
+
+        window.addEventListener('load', runReset, { once: true });
+        window.addEventListener('pageshow', (event) => {
+          if (event.persisted || isReload) {
+            runReset();
+          }
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="noise pointer-events-none fixed inset-0 z-[90] opacity-[0.025] mix-blend-soft-light" aria-hidden="true"></div>
+    <slot />
+  </body>
+</html>

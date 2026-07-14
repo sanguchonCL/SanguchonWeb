@@ -1,0 +1,116 @@
+---
+import { menuItems } from "../../data/menu";
+import { SITE_INFO } from "../../data/site-info";
+---
+
+<section
+  id="especialidades"
+  class="border-b border-line bg-surface py-18 sm:py-24 lg:py-28"
+>
+  <div class="container">
+    <header
+      class="mb-8 flex flex-col gap-5 sm:mb-10 md:mb-12 md:flex-row md:items-end md:justify-between"
+    >
+      <div class="max-w-2xl">
+        <p
+          class="mb-3 text-[0.65rem] font-bold uppercase tracking-[.2em] text-fire"
+        >
+          01 / Los elegidos
+        </p>
+        <h2
+          class="font-display text-[clamp(3.1rem,7vw,7rem)] leading-[.82] tracking-[-.03em] text-ink"
+        >
+          BEST<br />
+          <span class="text-muted">SELLERS</span>
+        </h2>
+      </div>
+      <p class="max-w-md text-sm leading-relaxed text-ink-soft sm:text-base">
+        Tres hamburguesas pensadas para verse potentes, recordarlas su nombre
+        siempre y comerlas en SAN GUCHON.
+      </p>
+    </header>
+
+    <div
+      class="grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-12 lg:gap-5"
+    >
+      {
+        menuItems.map((item, index) => (
+          <article
+            class:list={[
+              "group self-start overflow-hidden rounded-[1.35rem] bg-surface-raised shadow-[0_20px_55px_rgb(34_15_7/.10)] ring-1 ring-line transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_26px_70px_rgb(232_59_22/.16)]",
+              index === 0 ? "sm:col-span-2 lg:col-span-6" : "lg:col-span-3",
+            ]}
+          >
+            <div
+              class:list={[
+                "relative overflow-hidden",
+                index === 0
+                  ? "aspect-[16/14] sm:aspect-[4/4.2] lg:aspect-[4/4.5]"
+                  : "aspect-[16/11] sm:aspect-[4/5] lg:aspect-[4/5]",
+              ]}
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                width="960"
+                height="1280"
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+                class="photo-studio h-full w-full object-cover object-center transition duration-700 group-hover:scale-[1.045]"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/10 to-charcoal/5"
+                aria-hidden="true"
+              />
+              <span class="absolute right-4 top-4 rounded-full border border-white/12 bg-black/25 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[.18em] text-white/70 backdrop-blur-md">
+                0{index + 1}
+              </span>
+              {item.badge && (
+                <span class="absolute left-4 top-4 rounded-full bg-cheese px-3 py-1.5 text-[0.58rem] font-bold uppercase tracking-[.14em] text-charcoal shadow-lg">
+                  {item.badge}
+                </span>
+              )}
+
+              <div class="absolute inset-x-0 bottom-0 p-4 px-5 text-white sm:p-6">
+                <div class="flex flex-wrap items-end justify-between gap-3">
+                  <h3 class="max-w-[10ch] font-display text-2xl leading-[.92] tracking-wide sm:text-4xl">
+                    {item.title}
+                  </h3>
+                  <span class="shrink-0 rounded-full bg-white/12 px-3 py-1.5 text-xs font-bold backdrop-blur-md">
+                    {item.price}
+                  </span>
+                </div>
+
+                <p class="mt-2 max-w-md text-xs leading-relaxed text-white/74 sm:mt-3">
+                  {item.description}
+                </p>
+
+                <div class="mt-3 flex flex-wrap items-center gap-2">
+                  <span class="inline-flex rounded-full border border-white/20 bg-zinc-800/80 px-3 py-1 text-[0.58rem] font-bold uppercase tracking-[.14em] text-white/90 backdrop-blur-md">
+                    {item.includes}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div
+      class="mt-8 flex flex-col items-start justify-between gap-5 border-t border-line pt-6 sm:flex-row sm:items-center"
+    >
+      <p class="text-sm text-muted">
+        Hamburguesas, vienesas, churrascos, lomitos y acompañamientos.
+      </p>
+      <a
+        href={SITE_INFO.menuUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-full border border-ink px-5 py-3 text-xs font-bold uppercase tracking-[.14em] text-ink transition hover:bg-ink hover:text-surface"
+      >
+        Explorar la carta <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+</section>

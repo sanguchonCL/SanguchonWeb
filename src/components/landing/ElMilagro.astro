@@ -1,0 +1,20 @@
+---
+import BurgerAnatomy from '../react/BurgerAnatomy.jsx';
+---
+
+<section id="anatomia" class="overflow-hidden bg-canvas py-20 text-ink sm:py-28">
+  <div class="container">
+    <div class="mb-8 flex items-end justify-between gap-6 sm:mb-10">
+      <div>
+        <p class="mb-2 text-[.65rem] font-bold uppercase tracking-[.2em] text-fire">02 / Ingeniería comestible</p>
+        <h2 class="font-display text-[clamp(3.5rem,7vw,7rem)] leading-[.8] tracking-[-.03em]">EL<br /><span class="text-fire">MILAGRO</span></h2>
+      </div>
+      <p class="hidden max-w-xs text-sm leading-relaxed text-muted md:block">Las capas que convierten una hamburguesa en un pequeño acto de fe.</p>
+    </div>
+    <div class="relative overflow-hidden rounded-[clamp(1.4rem,4vw,2.4rem)] border border-white/10 bg-[#0D0D0D] p-[clamp(1rem,3vw,2rem)] text-[#fff8ed] shadow-[inset_0_20px_50px_-20px_rgba(229,9,20,0.15),0_30px_80px_rgba(34,12,3,0.2)]">
+      <div class="pointer-events-none absolute inset-0 opacity-[.07] [background-image:linear-gradient(rgba(255,248,237,.4)_1px,transparent_1px),linear-gradient(90deg,rgba(255,248,237,.4)_1px,transparent_1px)] [background-size:36px_36px] [mask-image:linear-gradient(135deg,#000,transparent_70%)]" />
+      <div class="relative z-10 mb-4 flex justify-between gap-4 border-b border-white/15 pb-4 text-[.58rem] font-extrabold uppercase tracking-[.16em] text-white/55"><span>Despiece oficial</span><span class="text-right">Scroll para ensamblar <span aria-hidden="true">↓</span></span></div>
+      <BurgerAnatomy client:visible />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+/* Design tokens: Tailwind utilities consume these semantic variables, so the
+   entire UI changes theme without duplicating light/dark class lists. */
+@theme inline {
+  --font-display: "Anton", sans-serif;
+  --font-sans: "Space Grotesk", sans-serif;
+
+  --color-canvas: var(--sg-canvas);
+  --color-surface: var(--sg-surface);
+  --color-surface-raised: var(--sg-surface-raised);
+  --color-ink: var(--sg-ink);
+  --color-ink-soft: var(--sg-ink-soft);
+  --color-muted: var(--sg-muted);
+  --color-line: var(--sg-line);
+  --color-fire: #e83b16;
+  --color-fire-bright: #ff5a1f;
+  --color-brioche: #f4b83f;
+  --color-cheese: #ffd166;
+  --color-charcoal: #100d0b;
+
+  --animate-marquee: marquee 24s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-logo-breathe: logo-breathe 4.8s ease-in-out infinite;
+  --animate-orbit: orbit 12s linear infinite;
+  --animate-santoral-reveal: santoral-reveal .7s cubic-bezier(.22, 1, .36, 1) both;
+  --animate-santoral-glow: santoral-glow 3.8s ease-in-out infinite;
+
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(-1.5deg); }
+    50% { transform: translate3d(0, -14px, 0) rotate(1.5deg); }
+  }
+
+  @keyframes logo-breathe {
+    0%, 100% { filter: drop-shadow(0 8px 12px rgb(77 26 8 / .18)); }
+    50% { filter: drop-shadow(0 10px 20px rgb(232 59 22 / .35)); }
+  }
+
+  @keyframes orbit {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes santoral-reveal {
+    from { opacity: 0; transform: translateY(18px) scale(.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes santoral-glow {
+    0%, 100% { box-shadow: 0 0 0 rgb(232 59 22 / 0); }
+    50% { box-shadow: 0 0 32px rgb(232 59 22 / .14); }
+  }
+}
+
+:root {
+  color-scheme: light;
+  --sg-canvas: #f8f2e8;
+  --sg-surface: #fffaf2;
+  --sg-surface-raised: #ffffff;
+  --sg-ink: #21130e;
+  --sg-ink-soft: #4c352c;
+  --sg-muted: #806d62;
+  --sg-line: rgb(63 37 26 / .16);
+  --sg-nav: rgb(255 250 242 / .84);
+  --sg-glow: rgb(232 59 22 / .16);
+  --sg-hero-overlay: linear-gradient(105deg, rgb(248 242 232 / .98) 10%, rgb(248 242 232 / .76) 44%, rgb(248 242 232 / .06) 74%);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --sg-canvas: #100d0b;
+  --sg-surface: #181310;
+  --sg-surface-raised: #211914;
+  --sg-ink: #fff8ed;
+  --sg-ink-soft: #dfcfc1;
+  --sg-muted: #9e8c80;
+  --sg-line: rgb(255 239 222 / .13);
+  --sg-nav: rgb(16 13 11 / .84);
+  --sg-glow: rgb(255 75 24 / .22);
+  --sg-hero-overlay: linear-gradient(105deg, rgb(16 13 11 / .98) 10%, rgb(16 13 11 / .78) 44%, rgb(16 13 11 / .1) 74%);
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--sg-canvas);
+  }
+
+  body {
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--sg-canvas);
+    color: var(--sg-ink);
+    font-family: "Space Grotesk", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color .35s ease, color .35s ease;
+  }
+
+  button, a { -webkit-tap-highlight-color: transparent; }
+  button { font: inherit; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: #e83b16; color: #fff8ed; }
+}
+
+.container { width: min(100% - 2rem, 1280px); margin-inline: auto; }
+
+.noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+.hero-atmosphere {
+  background:
+    var(--sg-hero-overlay),
+    radial-gradient(circle at 76% 42%, var(--sg-glow), transparent 35%);
+}
+
+.logo-premium {
+  animation: logo-breathe 4.8s ease-in-out infinite;
+  transform: translateZ(0);
+}
+
+.float-slow { animation: float 7s ease-in-out infinite; }
+
+.photo-studio {
+  filter: saturate(.92) contrast(1.06) brightness(.96);
+}
+
+.santoral-reveal {
+  animation: santoral-reveal .7s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.santoral-media img {
+  transition: transform .8s cubic-bezier(.22, 1, .36, 1), filter .5s ease;
+}
+
+.santoral-media:hover img,
+.santoral-media:focus-within img {
+  transform: scale(1.035);
+  filter: saturate(1.08) contrast(1.06) brightness(1.02);
+}
+
+.santoral-today {
+  animation: santoral-glow 3.8s ease-in-out infinite;
+}
+
+:root[data-theme="dark"] .photo-studio {
+  filter: saturate(1.05) contrast(1.08) brightness(.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

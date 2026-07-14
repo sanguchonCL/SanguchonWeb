@@ -1,0 +1,197 @@
+---
+import { SITE_INFO } from "../../data/site-info";
+import logoSanGuchon from "../../assets/logo-san-guchon.svg";
+---
+
+<section id="feedback" class="bg-surface py-16 sm:py-24">
+  <div class="container">
+    <div class="feedback-panel">
+      <img
+        src="/images/venue/local-noche.webp"
+        alt="San Guchon de noche"
+        class="feedback-panel__image"
+        loading="lazy"
+      />
+      <div class="feedback-panel__veil" aria-hidden="true"></div>
+      <div class="feedback-panel__content">
+        <p
+          class="mb-3 text-[0.65rem] font-bold uppercase tracking-[.2em] text-cheese"
+        >
+          Tu experiencia nos mueve
+        </p>
+        <h2
+          class="max-w-2xl font-display text-[clamp(2.8rem,5vw,5.5rem)] leading-[.86] tracking-[-.02em] text-white"
+        >
+          AYÚDANOS A SERVIRTE <span class="text-cheese">MEJOR.</span>
+        </h2>
+        <p class="mt-5 max-w-lg text-sm leading-relaxed text-white/72">
+          Cuéntanos qué te encantó y qué podemos mejorar. Tu comentario llega
+          directo a la cocina.
+        </p>
+        <a
+          href={SITE_INFO.googleFormsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-7 inline-flex items-center gap-2 rounded-full bg-cheese px-5 py-3 text-xs font-bold uppercase tracking-[.14em] text-charcoal shadow-[0_12px_28px_rgb(0_0_0/.18)] transition hover:-translate-y-1 hover:bg-white"
+          >Compartir mi experiencia <span aria-hidden="true">↗</span></a
+        >
+      </div>
+      <div class="feedback-panel__mark" aria-hidden="true">
+        <span class="feedback-panel__quote">“</span><img
+          src={logoSanGuchon.src}
+          alt=""
+          class="feedback-panel__logo"
+        /><div class="feedback-panel__rating">
+          <strong>5.0</strong><span>★★★★★</span><small
+            >Queremos mantenerlo así</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .feedback-panel {
+    position: relative;
+    display: grid;
+    min-height: 470px;
+    overflow: hidden;
+    color: #fff8ed;
+    background: #2a0e08;
+    border-radius: clamp(1.5rem, 4vw, 2.6rem);
+    box-shadow: 0 28px 70px rgb(58 16 8 / 0.25);
+  }
+  .feedback-panel__image,
+  .feedback-panel__veil {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .feedback-panel__image {
+    object-fit: cover;
+    transition: transform 0.8s ease;
+  }
+  .feedback-panel:hover .feedback-panel__image {
+    transform: scale(1.045);
+  }
+  .feedback-panel__veil {
+    background: linear-gradient(
+      110deg,
+      rgb(42 14 8 / 0.97) 0%,
+      rgb(127 30 17 / 0.86) 58%,
+      rgb(185 55 30 / 0.48)
+    );
+  }
+  .feedback-panel::before {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    content: "";
+    opacity: 0.12;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgb(255 235 205 / 0.2) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 235 205 / 0.2) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: linear-gradient(90deg, #000, transparent 80%);
+  }
+  .feedback-panel__content,
+  .feedback-panel__mark {
+    position: relative;
+    z-index: 2;
+  }
+  .feedback-panel__content {
+    align-self: center;
+    padding: clamp(2rem, 6vw, 5rem);
+  }
+  .feedback-panel__mark {
+    display: grid;
+    place-items: center;
+    min-height: 400px;
+  }
+  .feedback-panel__mark::before {
+    position: absolute;
+    width: 75%;
+    aspect-ratio: 1;
+    content: "";
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgb(255 205 65 / 0.38),
+      transparent 66%
+    );
+    animation: feedbackGlow 4s ease-in-out infinite;
+  }
+  .feedback-panel__logo {
+    position: relative;
+    width: min(62%, 260px);
+    filter: drop-shadow(0 22px 28px rgb(0 0 0 / 0.38));
+  }
+  .feedback-panel__quote {
+    position: absolute;
+    top: 8%;
+    right: 8%;
+    color: rgb(255 225 168 / 0.18);
+    font:
+      400 12rem/0.7 Georgia,
+      serif;
+  }
+  .feedback-panel__rating {
+    position: absolute;
+    right: 8%;
+    bottom: 9%;
+    display: grid;
+    padding: 0.9rem 1rem;
+    background: rgb(18 6 4 / 0.7);
+    border: 1px solid rgb(255 238 213 / 0.16);
+    border-radius: 1rem;
+    backdrop-filter: blur(12px);
+  }
+  .feedback-panel__rating strong {
+    font: 400 1.7rem/1 var(--font-display);
+  }
+  .feedback-panel__rating span {
+    margin-top: 0.25rem;
+    color: #ffc52e;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+  .feedback-panel__rating small {
+    margin-top: 0.2rem;
+    color: #d8bfb3;
+    font-size: 0.62rem;
+  }
+  @keyframes feedbackGlow {
+    50% {
+      opacity: 0.6;
+      transform: scale(1.1);
+    }
+  }
+  @media (max-width: 768px) {
+    .feedback-panel {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+    .feedback-panel__content {
+      padding: 2.2rem 1.25rem 1.2rem;
+      text-align: center;
+    }
+    .feedback-panel__content p {
+      margin-inline: auto;
+    }
+    .feedback-panel__mark {
+      min-height: 260px;
+    }
+    .feedback-panel__logo {
+      width: min(50%, 190px);
+    }
+    .feedback-panel__quote {
+      font-size: 8rem;
+    }
+    .feedback-panel__rating {
+      right: 1rem;
+      bottom: 1rem;
+    }
+  }
+</style>
