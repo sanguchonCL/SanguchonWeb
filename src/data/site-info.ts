@@ -2,9 +2,9 @@
 export const SITE_INFO = {
   name: "Sanguchon",
   url: "https://www.sanguchonoficial.cl",
-  tagline: "La Mejor Hamburguesa de San Miguel",
+  tagline: "Sanguchería de culto y comida rápida de barrio",
   description:
-    "Sanguchon San Miguel: sanguchería a la parrilla en Santiago, con sánguches, hamburguesas, carne Angus, papas y sabor de barrio en San Nicolás 1390.",
+    "Sanguchon: sanguchería de comida rápida con completos, sánguches, hamburguesas, papas y sabor de barrio.",
   address: "San Nicolás 1390, San Miguel, Santiago",
   phone: "+56 9 1234 5678",
   email: "sanguchito1606@gmail.com",

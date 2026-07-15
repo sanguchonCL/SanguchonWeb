@@ -4,7 +4,7 @@ import { SITE_INFO } from '../data/site-info';
 
 interface Props { title?: string; description?: string; }
 const {
-  title = `Sanguchon San Miguel | Sanguchería a la parrilla`,
+  title = `Sanguchon | Sanguchería, completos y hamburguesas`,
   description = SITE_INFO.description,
 } = Astro.props;
 
@@ -15,7 +15,7 @@ const structuredData = {
       "@type": "Restaurant",
       "@id": `${SITE_INFO.url}/#restaurant`,
       name: SITE_INFO.name,
-      alternateName: "Sanguchon San Miguel",
+      alternateName: "Sanguchon",
       description: SITE_INFO.description,
       url: SITE_INFO.url,
       logo: `${SITE_INFO.url}/favicon.svg`,
@@ -23,7 +23,7 @@ const structuredData = {
       telephone: SITE_INFO.phone,
       email: SITE_INFO.email,
       priceRange: "$$",
-      servesCuisine: ["Sanguchería", "Sánguches", "Hamburguesas", "Comida rápida"],
+      servesCuisine: ["Sanguchería", "Completos", "Sánguches", "Hamburguesas", "Comida rápida"],
       menu: `${SITE_INFO.url}${SITE_INFO.menuUrl}`,
       sameAs: [SITE_INFO.instagramUrl],
       address: {
@@ -50,7 +50,7 @@ const structuredData = {
       "@id": `${SITE_INFO.url}/#website`,
       url: SITE_INFO.url,
       name: SITE_INFO.name,
-      alternateName: "Sanguchon San Miguel",
+      alternateName: "Sanguchon",
       inLanguage: "es-CL",
       publisher: { "@id": `${SITE_INFO.url}/#restaurant` },
     },
