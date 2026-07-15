@@ -4,9 +4,58 @@ import { SITE_INFO } from '../data/site-info';
 
 interface Props { title?: string; description?: string; }
 const {
-  title = `${SITE_INFO.name} | Fuego real en San Miguel`,
+  title = `${SITE_INFO.name} | Hamburguesas a la parrilla en San Miguel`,
   description = SITE_INFO.description,
 } = Astro.props;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Restaurant",
+      "@id": `${SITE_INFO.url}/#restaurant`,
+      name: SITE_INFO.name,
+      alternateName: "Sanguchon San Miguel",
+      description: SITE_INFO.description,
+      url: SITE_INFO.url,
+      logo: `${SITE_INFO.url}/favicon.svg`,
+      image: `${SITE_INFO.url}${SITE_INFO.ogImage}`,
+      telephone: SITE_INFO.phone,
+      email: SITE_INFO.email,
+      priceRange: "$$",
+      servesCuisine: ["Hamburguesas", "Comida rápida"],
+      menu: `${SITE_INFO.url}${SITE_INFO.menuUrl}`,
+      sameAs: [SITE_INFO.instagramUrl],
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: SITE_INFO.streetAddress,
+        postalCode: SITE_INFO.postalCode,
+        addressLocality: SITE_INFO.addressLocality,
+        addressRegion: SITE_INFO.addressRegion,
+        addressCountry: SITE_INFO.addressCountry,
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: SITE_INFO.latitude,
+        longitude: SITE_INFO.longitude,
+      },
+      hasMap: SITE_INFO.googleMapsUrl,
+      openingHoursSpecification: [
+        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"], opens: "12:30", closes: "23:15" },
+        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Friday", "Saturday"], opens: "12:30", closes: "23:59" },
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_INFO.url}/#website`,
+      url: SITE_INFO.url,
+      name: SITE_INFO.name,
+      alternateName: "Sanguchon San Miguel",
+      inLanguage: "es-CL",
+      publisher: { "@id": `${SITE_INFO.url}/#restaurant` },
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -16,6 +65,8 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#100d0b" />
     <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href={SITE_INFO.url} />
     <!-- SVG first for modern browsers, ICO fallback for legacy clients. -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
@@ -28,6 +79,16 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={SITE_INFO.url} />
+    <meta property="og:site_name" content="Sanguchon" />
+    <meta property="og:locale" content="es_CL" />
+    <meta property="og:image" content={`${SITE_INFO.url}${SITE_INFO.ogImage}`} />
+    <meta property="og:image:alt" content="Hamburguesa Sanguchon a la parrilla" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${SITE_INFO.url}${SITE_INFO.ogImage}`} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
     <!-- Dark-only brand: set before paint to avoid any light-theme flash. -->
     <script is:inline>
