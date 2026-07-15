@@ -4,7 +4,7 @@ export const SITE_INFO = {
   url: "https://www.sanguchonoficial.cl",
   tagline: "La Mejor Hamburguesa de San Miguel",
   description:
-    "Sanguchon San Miguel: hamburguesas a la parrilla en Santiago, con carne Angus, papas y sabor de barrio en San Nicolás 1390.",
+    "Sanguchon San Miguel: sanguchería a la parrilla en Santiago, con sánguches, hamburguesas, carne Angus, papas y sabor de barrio en San Nicolás 1390.",
   address: "San Nicolás 1390, San Miguel, Santiago",
   phone: "+56 9 1234 5678",
   email: "sanguchito1606@gmail.com",
