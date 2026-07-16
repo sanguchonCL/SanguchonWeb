@@ -67,7 +67,8 @@ const structuredData = {
     <meta name="color-scheme" content="dark" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href={SITE_INFO.url} />
-    <!-- SVG first for modern browsers, ICO fallback for legacy clients. -->
+    <!-- Explicit 16px favicon plus ICO/SVG fallbacks for broad compatibility. -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
