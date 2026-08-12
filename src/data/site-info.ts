@@ -23,6 +23,7 @@ export const SITE_INFO = {
   googleMapsUrl:
     "https://www.google.com/maps/dir/?api=1&destination=San+Guchon+-+San+Nicol%C3%A1s+1390%2C+8920057+San+Miguel%2C+Regi%C3%B3n+Metropolitana",
   instagramUrl: "https://www.instagram.com/sanguchoncl/",
+  tiktokUrl: "https://www.tiktok.com/@sanguchoncl",
   menuUrl: "/menu-san-guchon.pdf",
   linkedinUrl:
     "https://www.linkedin.com/in/jorge-vergara-stuardo-1a894630b/?skipRedirect=true",
