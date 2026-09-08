@@ -16,9 +16,17 @@ const fmt = (names: string[] = []) => {
   return `${names.slice(0, -1).join(', ')} y ${names.at(-1)}`;
 };
 
+const normalize = (value: string) =>
+  value
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLocaleLowerCase('es-CL')
+    .trim();
+
 export default function SeccionSantoral() {
   const [cur, setCur] = useState<{ m: number; d: number } | null>(null);
   const [month, setMonth] = useState(7);
+  const [query, setQuery] = useState('');
   const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,31 +44,46 @@ export default function SeccionSantoral() {
     return santoralData[keyFor(cur.m, cur.d)]?.names ?? [];
   }, [cur]);
 
-  const days = useMemo(() =>
-    Object.entries(santoralData)
-      .filter(([k]) => Number(k.slice(0, 2)) === month)
-      .map(([k, v]) => ({ day: Number(k.slice(3, 5)), names: v.names }))
-      .sort((a, b) => a.day - b.day),
-    [month],
-  );
+  const days = useMemo(() => {
+    const normalizedQuery = normalize(query);
+
+    return Object.entries(santoralData)
+      .map(([key, value]) => ({
+        month: Number(key.slice(0, 2)),
+        day: Number(key.slice(3, 5)),
+        names: value.names,
+      }))
+      .filter(item => {
+        if (normalizedQuery) {
+          return item.names.some(name => normalize(name).includes(normalizedQuery));
+        }
+
+        return item.month === month;
+      })
+      .sort((a, b) => a.month - b.month || a.day - b.day);
+  }, [month, query]);
 
   useEffect(() => {
-    if (!cur || month !== cur.m) return;
+    if (!cur || query || month !== cur.m) return;
 
     const container = listRef.current;
     const activeRow = container?.querySelector('[data-today]') as HTMLElement | null;
     if (!container || !activeRow) return;
 
-    const targetTop =
-      activeRow.offsetTop - container.clientHeight / 2 + activeRow.clientHeight / 2;
-
     requestAnimationFrame(() => {
+      const containerRect = container.getBoundingClientRect();
+      const rowRect = activeRow.getBoundingClientRect();
+      const targetTop =
+        container.scrollTop +
+        (rowRect.top - containerRect.top) -
+        (container.clientHeight - rowRect.height) / 2;
+
       container.scrollTo({
         top: Math.max(0, targetTop),
         behavior: 'smooth',
       });
     });
-  }, [cur, month, days.length]);
+  }, [cur, month, query, days.length]);
 
   const todayLabel = cur ? `${cur.d} de ${MONTHS[cur.m - 1]}` : '';
   const todayDay = cur ? String(cur.d).padStart(2, '0') : '--';
@@ -69,7 +92,14 @@ export default function SeccionSantoral() {
   const next = () => setMonth(m => m >= 12 ? 1 : m + 1);
 
   return (
-    <section id="santoral" style={{ scrollMarginTop: 96 }}>
+    <section id="santoral" className="relative overflow-hidden" style={{ scrollMarginTop: 96 }}>
+      <img
+        src="/images/seasonal/18-septiembre/cinta-chile.png"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="seasonal-only seasonal-ribbon pointer-events-none absolute -right-28 top-4 w-[min(82vw,760px)] opacity-[.07]"
+      />
       <div className="container" style={{ paddingTop: 'clamp(4rem, 8vw, 7rem)', paddingBottom: 'clamp(4rem, 8vw, 7rem)' }}>
 
         {/* ─── HEADER ─── */}
@@ -195,12 +225,12 @@ export default function SeccionSantoral() {
             {/* Toolbar */}
             <div className="border-b border-line" style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '14px 20px',
+              flexWrap: 'wrap', gap: 12, padding: '14px 20px',
             }}>
               <h3 className="text-ink" style={{ fontSize: 'clamp(0.875rem, 1.5vw, 1rem)', fontWeight: 700 }}>
                 ¿Cuándo es tu turno?
               </h3>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginLeft: 'auto' }}>
                 <button
                   onClick={prev}
                   className="text-muted"
@@ -223,12 +253,25 @@ export default function SeccionSantoral() {
                   className="text-ink border-line"
                   style={{
                     appearance: 'none', borderRadius: 8, border: '1px solid',
-                    background: 'transparent', padding: '6px 12px',
+                    background: '#171310', color: '#fff8ed', colorScheme: 'dark',
+                    minWidth: 118, padding: '8px 32px 8px 12px',
                     fontSize: '0.875rem', fontWeight: 700,
                     outline: 'none', cursor: 'pointer',
+                    backgroundImage: 'linear-gradient(45deg, transparent 50%, #e83b16 50%), linear-gradient(135deg, #e83b16 50%, transparent 50%)',
+                    backgroundPosition: 'calc(100% - 15px) 50%, calc(100% - 10px) 50%',
+                    backgroundSize: '5px 5px, 5px 5px',
+                    backgroundRepeat: 'no-repeat',
                   }}
                 >
-                  {MONTHS.map((m, i) => <option key={m} value={i + 1}>{m}</option>)}
+                  {MONTHS.map((m, i) => (
+                    <option
+                      key={m}
+                      value={i + 1}
+                      style={{ backgroundColor: '#171310', color: '#fff8ed' }}
+                    >
+                      {m}
+                    </option>
+                  ))}
                 </select>
                 <button
                   onClick={next}
@@ -247,21 +290,86 @@ export default function SeccionSantoral() {
               </div>
             </div>
 
+            <div className="border-b border-line" style={{ padding: '14px 20px' }}>
+              <label
+                htmlFor="santoral-search"
+                className="text-muted"
+                style={{ display: 'block', marginBottom: 8, fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}
+              >
+                Buscar por nombre
+              </label>
+              <div style={{ position: 'relative' }}>
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  width="17"
+                  height="17"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="text-muted"
+                  style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m20 20-3.4-3.4" />
+                </svg>
+                <input
+                  id="santoral-search"
+                  type="text"
+                  inputMode="search"
+                  value={query}
+                  onChange={event => setQuery(event.target.value)}
+                  placeholder="Ej: Teresa, Juan, María…"
+                  autoComplete="off"
+                  className="border-line bg-charcoal text-white placeholder:text-white/35"
+                  style={{
+                    width: '100%', minHeight: 46, border: '1px solid', borderRadius: 12,
+                    padding: '11px 44px 11px 42px', fontSize: '0.875rem', outline: 'none',
+                    transition: 'border-color .2s, box-shadow .2s',
+                  }}
+                  onFocus={event => {
+                    event.currentTarget.style.borderColor = 'rgb(232 59 22 / .7)';
+                    event.currentTarget.style.boxShadow = '0 0 0 3px rgb(232 59 22 / .12)';
+                  }}
+                  onBlur={event => {
+                    event.currentTarget.style.borderColor = 'var(--sg-line)';
+                    event.currentTarget.style.boxShadow = 'none';
+                  }}
+                />
+                {query && (
+                  <button
+                    type="button"
+                    onClick={() => setQuery('')}
+                    aria-label="Limpiar búsqueda"
+                    className="text-muted hover:text-white"
+                    style={{ position: 'absolute', right: 8, top: '50%', width: 34, height: 34, transform: 'translateY(-50%)', border: 0, borderRadius: 8, background: 'transparent', cursor: 'pointer' }}
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+              <p className="text-muted" style={{ marginTop: 8, fontSize: '0.7rem', lineHeight: 1.45 }}>
+                {query
+                  ? `${days.length} coincidencia${days.length === 1 ? '' : 's'} en todo el año.`
+                  : `Mostrando el santoral de ${MONTHS[month - 1]}.`}
+              </p>
+            </div>
+
             {/* Day grid — capped, scrollable */}
             <div
               ref={listRef}
+              className="santoral-day-list"
               style={{
-                maxHeight: 340,
                 overflowY: 'auto',
                 scrollbarWidth: 'thin',
                 scrollbarColor: 'var(--color-fire, #e83b16) transparent',
               }}
             >
-              {days.map(({ day, names }) => {
-                const isToday = cur?.m === month && cur.d === day;
+              {days.map(({ month: itemMonth, day, names }) => {
+                const isToday = cur?.m === itemMonth && cur.d === day;
                 return (
                   <div
-                    key={day}
+                    key={`${itemMonth}-${day}`}
                     {...(isToday ? { 'data-today': '' } : {})}
                     className={`${isToday ? 'santoral-today' : ''} border-b border-line transition-colors duration-200`}
                     style={{
@@ -284,8 +392,15 @@ export default function SeccionSantoral() {
                     }}>
                       {day}
                     </span>
-                    <span className={isToday ? 'font-bold text-white' : 'text-ink-soft'} style={{ fontWeight: isToday ? 700 : 500 }}>
-                      {fmt(names)}
+                    <span style={{ minWidth: 0 }}>
+                      <span className={isToday ? 'font-bold text-white' : 'text-ink-soft'} style={{ display: 'block', fontWeight: isToday ? 700 : 500 }}>
+                        {fmt(names)}
+                      </span>
+                      {query && (
+                        <span className="text-muted" style={{ display: 'block', marginTop: 2, fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                          {day} de {MONTHS[itemMonth - 1]}
+                        </span>
+                      )}
                     </span>
                     {isToday && (
                       <span className="text-fire" style={{
@@ -299,6 +414,16 @@ export default function SeccionSantoral() {
                   </div>
                 );
               })}
+              {!days.length && (
+                <div style={{ padding: '32px 20px', textAlign: 'center' }}>
+                  <p className="text-ink" style={{ fontSize: '0.9rem', fontWeight: 700 }}>
+                    No encontramos ese nombre.
+                  </p>
+                  <p className="text-muted" style={{ marginTop: 6, fontSize: '0.75rem' }}>
+                    Prueba con otro nombre o revisa la escritura.
+                  </p>
+                </div>
+              )}
             </div>
           </article>
         </div>
@@ -306,6 +431,18 @@ export default function SeccionSantoral() {
 
       {/* Responsive grid via CSS — guaranteed to work */}
       <style>{`
+        .santoral-day-list {
+          max-height: 340px;
+          overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        @media (max-width: 639px) {
+          .santoral-day-list {
+            max-height: 280px;
+          }
+        }
+
         @media (min-width: 1024px) {
           .santoral-top-grid {
             grid-template-columns: 5fr 7fr !important;

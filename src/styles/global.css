@@ -122,6 +122,11 @@
 }
 
 /* September seasonal accents: Chilean colors kept as restrained details. */
+html:not(.patriotic-season) .seasonal-only,
+.patriotic-season .standard-only {
+  display: none !important;
+}
+
 .patriotic-season .patria-ribbon {
   background: linear-gradient(90deg, #d9282f 0 33%, #fff8ed 33% 66%, #123b72 66%);
   background-size: 300% 100%;
@@ -136,6 +141,71 @@
 .patriotic-season .patria-chip {
   border-color: rgb(217 40 47 / .35);
   background: linear-gradient(110deg, rgb(217 40 47 / .14), rgb(18 59 114 / .18));
+}
+
+.patriotic-season .patria-garland {
+  transform-origin: 50% 0;
+  animation: patria-garland-sway 9s ease-in-out infinite;
+}
+
+/* A thin tricolor seam gives every block a shared seasonal rhythm. */
+.patriotic-season main > section:not(#inicio) {
+  position: relative;
+}
+
+.patriotic-season main > section:not(#inicio)::before {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 50%;
+  width: min(88%, 1120px);
+  height: 2px;
+  content: "";
+  pointer-events: none;
+  transform: translateX(-50%);
+  opacity: .58;
+  background: linear-gradient(90deg, transparent, #123b72 18% 42%, #fff8ed 42% 58%, #d9282f 58% 82%, transparent);
+  box-shadow: 0 0 18px rgb(232 59 22 / .12);
+}
+
+.seasonal-sway {
+  transform-origin: 50% 0;
+  animation: seasonal-sway 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.seasonal-float {
+  animation: seasonal-float 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+.seasonal-ribbon {
+  animation: seasonal-ribbon 9s ease-in-out infinite;
+  will-change: transform;
+}
+
+:root[data-theme="dark"] .seasonal-cueca {
+  filter: invert(1);
+}
+
+@keyframes seasonal-sway {
+  0%, 100% { transform: rotate(-.7deg) translateY(0); }
+  50% { transform: rotate(.7deg) translateY(6px); }
+}
+
+@keyframes seasonal-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-2deg); }
+  50% { transform: translate3d(0, -10px, 0) rotate(2deg); }
+}
+
+@keyframes seasonal-ribbon {
+  0%, 100% { transform: translate3d(-1%, 0, 0) scale(1); }
+  50% { transform: translate3d(1%, -4px, 0) scale(1.015); }
+}
+
+@keyframes patria-garland-sway {
+  0%, 100% { transform: rotate(-.6deg) translateY(0); }
+  50% { transform: rotate(.6deg) translateY(5px); }
 }
 
 .logo-premium {
@@ -184,6 +254,11 @@
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+  .seasonal-sway,
+  .seasonal-float,
+  .seasonal-ribbon {
+    will-change: auto;
   }
 }
 
