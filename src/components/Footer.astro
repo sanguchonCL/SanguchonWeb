@@ -1,6 +1,5 @@
 ---
 import { SITE_INFO } from "../data/site-info";
-import logoSanGuchon from "../assets/logo-san-guchon.svg";
 ---
 
 <footer
@@ -8,7 +7,7 @@ import logoSanGuchon from "../assets/logo-san-guchon.svg";
   class="relative overflow-hidden border-t border-white/10 bg-charcoal pt-0 text-white"
 >
   <img
-    src="/images/seasonal/18-septiembre/cinta-chile.png"
+    src="/images/seasonal/18-septiembre/cinta-chile.webp"
     alt=""
     aria-hidden="true"
     loading="lazy"
@@ -34,11 +33,13 @@ import logoSanGuchon from "../assets/logo-san-guchon.svg";
     <div>
       <a href="#inicio" class="flex w-fit items-center gap-4">
         <img
-          src={logoSanGuchon.src}
-          width="1000"
-          height="900"
+          src="/images/brand/logo-san-guchon.webp"
+          width="512"
+          height="461"
           alt=""
           class="logo-premium size-20 object-contain"
+          loading="lazy"
+          decoding="async"
         />
         <span class="font-display text-5xl leading-[.8] tracking-[-.03em]"
           >SAN GUCHON</span

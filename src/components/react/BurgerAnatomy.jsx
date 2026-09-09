@@ -40,7 +40,7 @@ function LayerCopy({ layer, index, progress }) {
 
 export default function BurgerAnatomy() {
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start 22%', 'end 60%'] });
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start 80%', 'end 45%'] });
   const progress = useSpring(scrollYProgress, { stiffness: 110, damping: 24, mass: .35 });
   const impactControls = useAnimation();
   const hasImpacted = useRef(false);
@@ -53,7 +53,7 @@ export default function BurgerAnatomy() {
   });
   return <div ref={containerRef} className="relative grid gap-8 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
     <div className="order-2 flex flex-col gap-3 pt-[20rem] lg:order-1 lg:gap-5 lg:py-[20vh] lg:pt-0">{layers.map((layer, index) => <LayerCopy key={layer.id} layer={layer} index={index} progress={progress} />)}</div>
-    <div className="sticky top-20 z-20 order-1 -mb-[19rem] flex h-[19rem] items-center justify-center bg-[linear-gradient(to_bottom,#0D0D0D_0%,#0D0D0D_72%,transparent_100%)] pointer-events-none lg:static lg:order-2 lg:mb-0 lg:h-auto lg:bg-none"><div className="relative flex h-[19rem] w-full items-center justify-center lg:sticky lg:top-[22vh] lg:h-[54vh] lg:min-h-96">
+    <div className="relative z-20 order-1 -mb-[19rem] flex h-[19rem] items-center justify-center bg-[linear-gradient(to_bottom,#0D0D0D_0%,#0D0D0D_72%,transparent_100%)] pointer-events-none lg:order-2 lg:mb-0 lg:h-auto lg:bg-none"><div className="relative flex h-[19rem] w-full items-center justify-center lg:h-[54vh] lg:min-h-96">
       <motion.div animate={impactControls} initial={{ opacity: 0, scale: .8 }} className="pointer-events-none absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,90,31,.4),rgba(229,9,20,.1)_50%,transparent_70%)]" />
       <div className="relative h-56 w-full max-w-[25rem] sm:h-72">{layers.map((layer, index) => <AnatomyLayer key={layer.id} layer={layer} index={index} progress={progress} />)}</div>
       <p className="absolute bottom-0 text-[.6rem] font-bold uppercase tracking-[.22em] text-white/50 animate-pulse">Scroll para ensamblar <span aria-hidden="true">↓</span></p>

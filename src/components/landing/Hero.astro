@@ -1,14 +1,10 @@
----
-import logoSanGuchon from "../../assets/logo-san-guchon.svg";
----
-
 <section
   id="inicio"
   class="relative isolate flex min-h-svh items-center overflow-hidden bg-canvas pb-16 pt-28 sm:pb-12 sm:pt-32"
 >
   <div class="hero-atmosphere absolute inset-0" aria-hidden="true"></div>
   <img
-    src="/images/seasonal/18-septiembre/banderines-chile.png"
+    src="/images/seasonal/18-septiembre/banderines-chile.webp"
     alt=""
     aria-hidden="true"
     loading="lazy"
@@ -101,11 +97,14 @@ import logoSanGuchon from "../../assets/logo-san-guchon.svg";
       </div>
       <img
         src="/images/products/burger-hero.webp"
-        width="1024"
-        height="1024"
+        srcset="/images/products/burger-hero-640.webp 640w, /images/products/burger-hero.webp 1200w"
+        sizes="(max-width: 1023px) 100vw, 55vw"
+        width="1200"
+        height="1200"
         alt="Hamburguesa artesanal Sanguchon"
         class="relative z-10 mx-auto w-full animate-float object-contain saturate-[1.06] contrast-[1.04] drop-shadow-[0_30px_30px_rgb(23_7_2/.45)]"
         fetchpriority="high"
+        decoding="async"
       />
       <div
         class="float-slow absolute bottom-[15%] right-0 z-20 rounded-full border border-line bg-[var(--sg-nav)] px-3 py-2 text-[0.56rem] font-bold uppercase tracking-[.14em] text-ink shadow-xl backdrop-blur-md"

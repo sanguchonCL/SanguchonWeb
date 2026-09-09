@@ -1,6 +1,5 @@
 ---
 import { SITE_INFO } from "../../data/site-info";
-import logoSanGuchon from "../../assets/logo-san-guchon.svg";
 ---
 
 <section id="feedback" class="bg-surface py-16 sm:py-24">
@@ -8,9 +7,12 @@ import logoSanGuchon from "../../assets/logo-san-guchon.svg";
     <div class="feedback-panel">
       <img
         src="/images/venue/local-noche.webp"
+        srcset="/images/venue/local-noche-640.webp 640w, /images/venue/local-noche.webp 1200w"
+        sizes="(max-width: 768px) 100vw, 90vw"
         alt="San Guchon de noche"
         class="feedback-panel__image"
         loading="lazy"
+        decoding="async"
       />
       <div class="feedback-panel__veil" aria-hidden="true"></div>
       <div class="feedback-panel__content">
@@ -38,9 +40,11 @@ import logoSanGuchon from "../../assets/logo-san-guchon.svg";
       </div>
       <div class="feedback-panel__mark" aria-hidden="true">
         <span class="feedback-panel__quote">“</span><img
-          src={logoSanGuchon.src}
+          src="/images/brand/logo-san-guchon.webp"
           alt=""
           class="feedback-panel__logo"
+          loading="lazy"
+          decoding="async"
         /><div class="feedback-panel__rating">
           <strong>5.0</strong><span>★★★★★</span><small
             >Queremos mantenerlo así</small>

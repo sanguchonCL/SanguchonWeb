@@ -94,7 +94,7 @@ export default function SeccionSantoral() {
   return (
     <section id="santoral" className="relative overflow-hidden" style={{ scrollMarginTop: 96 }}>
       <img
-        src="/images/seasonal/18-septiembre/cinta-chile.png"
+        src="/images/seasonal/18-septiembre/cinta-chile.webp"
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -140,6 +140,8 @@ export default function SeccionSantoral() {
             }}>
               <img
                 src="/images/promos/si-estas-de-santo.webp"
+                srcSet="/images/promos/si-estas-de-santo-640.webp 640w, /images/promos/si-estas-de-santo.webp 1024w"
+                sizes="(max-width: 1023px) 100vw, 42vw"
                 alt="Promo: completo y bebida gratis si estás de santo"
                 style={{ width: '100%', height: 'auto', maxHeight: 520, objectFit: 'contain' }}
                 loading="lazy"

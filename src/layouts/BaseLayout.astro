@@ -18,7 +18,7 @@ const structuredData = {
       alternateName: "Sanguchon",
       description: SITE_INFO.description,
       url: SITE_INFO.url,
-      logo: `${SITE_INFO.url}/favicon.svg`,
+      logo: `${SITE_INFO.url}/images/brand/logo-san-guchon.webp`,
       image: `${SITE_INFO.url}${SITE_INFO.ogImage}`,
       telephone: SITE_INFO.phone,
       email: SITE_INFO.email,
@@ -70,8 +70,17 @@ const structuredData = {
     <!-- Explicit 16px favicon plus ICO/SVG fallbacks for broad compatibility. -->
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" as="image" href="/images/brand/logo-san-guchon.webp" type="image/webp" />
+    <link
+      rel="preload"
+      as="image"
+      href="/images/products/burger-hero-640.webp"
+      imagesrcset="/images/products/burger-hero-640.webp 640w, /images/products/burger-hero.webp 1200w"
+      imagesizes="(max-width: 1023px) 100vw, 55vw"
+      type="image/webp"
+      fetchpriority="high"
+    />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

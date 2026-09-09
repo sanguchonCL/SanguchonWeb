@@ -101,7 +101,8 @@
   ::selection { background: #e83b16; color: #fff8ed; }
 
   /* Automatic off-screen content skipping for low CPU overhead on long scroll */
-  section:not(#inicio) {
+  /* Sticky artwork in the anatomy section needs its normal scroll container. */
+  section:not(#inicio):not(#anatomia) {
     content-visibility: auto;
     contain-intrinsic-size: 1px 700px;
   }

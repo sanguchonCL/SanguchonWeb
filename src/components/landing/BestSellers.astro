@@ -8,7 +8,7 @@ import { SITE_INFO } from "../../data/site-info";
   class="relative overflow-hidden border-b border-line bg-surface py-18 sm:py-24 lg:py-28"
 >
   <img
-    src="/images/seasonal/18-septiembre/guirnalda-papel.png"
+    src="/images/seasonal/18-septiembre/guirnalda-papel.webp"
     alt=""
     aria-hidden="true"
     loading="lazy"
@@ -58,10 +58,13 @@ import { SITE_INFO } from "../../data/site-info";
             >
               <img
                 src={item.image}
+                srcset={`${item.image.replace(/\.webp$/, "-640.webp")} 640w, ${item.image} 1200w`}
+                sizes={index === 0 ? "(max-width: 1023px) 100vw, 50vw" : "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"}
                 alt={item.title}
                 width="960"
                 height="1280"
-                loading={index === 0 ? "eager" : "lazy"}
+                loading="lazy"
+                fetchpriority="low"
                 decoding="async"
                 class="photo-studio h-full w-full object-cover object-center transition duration-700 group-hover:scale-[1.045]"
               />

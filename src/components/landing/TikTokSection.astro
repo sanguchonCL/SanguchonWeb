@@ -1,13 +1,12 @@
 ---
 import { SITE_INFO } from "../../data/site-info";
-import logoSanGuchon from "../../assets/logo-san-guchon.svg";
 
 const realTikTokVideos = [
   {
     id: "7668534587026345223",
     url: "https://www.tiktok.com/@sanguchoncl/video/7668534587026345223",
     title: "Alguien más de santo? #fyp #sanguchon",
-    image: "/images/tiktok/video1.jpg",
+    image: "/images/tiktok/video1.webp",
     views: "29.2K",
     likes: "3.4K",
     duration: "0:28",
@@ -18,7 +17,7 @@ const realTikTokVideos = [
     id: "7665481226551102728",
     url: "https://www.tiktok.com/@sanguchoncl/video/7665481226551102728",
     title: "Tan malo es pedirse una hamburguesa triple? #sanguchon #hamburguesa #polemica",
-    image: "/images/tiktok/video2.jpg",
+    image: "/images/tiktok/video2.webp",
     views: "13.0K",
     likes: "1.8K",
     duration: "0:32",
@@ -44,7 +43,7 @@ const realTikTokVideos = [
   class="relative overflow-hidden border-b border-line bg-charcoal py-18 text-white sm:py-24"
 >
   <img
-    src="/images/seasonal/18-septiembre/guirnalda-papel.png"
+    src="/images/seasonal/18-septiembre/guirnalda-papel.webp"
     alt=""
     aria-hidden="true"
     loading="lazy"
@@ -119,9 +118,11 @@ const realTikTokVideos = [
           <div class="flex items-center gap-3">
             <div class="relative">
               <img
-                src={logoSanGuchon.src}
+                src="/images/brand/logo-san-guchon.webp"
                 alt="Sanguchon logo"
                 class="size-11 rounded-full border border-cheese/40 bg-black/50 p-1 object-contain shadow"
+                loading="lazy"
+                decoding="async"
               />
               <span
                 class="absolute -bottom-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full bg-[#ff0050] text-[9px] font-bold text-white shadow"
