@@ -9,9 +9,10 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     build: {
-      target: 'esnext',
+      target: 'es2020',
       cssCodeSplit: true,
       assetsInlineLimit: 4096,
+      minify: 'esbuild',
     },
   },
   integrations: [react()],

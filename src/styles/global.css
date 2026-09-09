@@ -18,6 +18,8 @@
   --color-brioche: #f4b83f;
   --color-cheese: #ffd166;
   --color-charcoal: #100d0b;
+  --color-patria-red: #d9282f;
+  --color-patria-blue: #123b72;
 
   --animate-marquee: marquee 24s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
@@ -36,22 +38,13 @@
   }
 
   @keyframes logo-breathe {
-    0%, 100% { filter: drop-shadow(0 8px 12px rgb(77 26 8 / .18)); }
-    50% { filter: drop-shadow(0 10px 20px rgb(232 59 22 / .35)); }
-  }
-
-  @keyframes orbit {
-    to { transform: rotate(360deg); }
-  }
-
-  @keyframes santoral-reveal {
-    from { opacity: 0; transform: translateY(18px) scale(.985); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    0%, 100% { transform: scale(1) translateZ(0); opacity: 0.95; }
+    50% { transform: scale(1.03) translateZ(0); opacity: 1; }
   }
 
   @keyframes santoral-glow {
-    0%, 100% { box-shadow: 0 0 0 rgb(232 59 22 / 0); }
-    50% { box-shadow: 0 0 32px rgb(232 59 22 / .14); }
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 1; }
   }
 }
 
@@ -64,7 +57,7 @@
   --sg-ink-soft: #4c352c;
   --sg-muted: #806d62;
   --sg-line: rgb(63 37 26 / .16);
-  --sg-nav: rgb(255 250 242 / .84);
+  --sg-nav: rgb(255 250 242 / .94);
   --sg-glow: rgb(232 59 22 / .16);
   --sg-hero-overlay: linear-gradient(105deg, rgb(248 242 232 / .98) 10%, rgb(248 242 232 / .76) 44%, rgb(248 242 232 / .06) 74%);
 }
@@ -78,7 +71,7 @@
   --sg-ink-soft: #dfcfc1;
   --sg-muted: #9e8c80;
   --sg-line: rgb(255 239 222 / .13);
-  --sg-nav: rgb(16 13 11 / .84);
+  --sg-nav: rgb(16 13 11 / .94);
   --sg-glow: rgb(255 75 24 / .22);
   --sg-hero-overlay: linear-gradient(105deg, rgb(16 13 11 / .98) 10%, rgb(16 13 11 / .78) 44%, rgb(16 13 11 / .1) 74%);
 }
@@ -106,12 +99,20 @@
   a { color: inherit; text-decoration: none; }
   img { display: block; max-width: 100%; }
   ::selection { background: #e83b16; color: #fff8ed; }
+
+  /* Automatic off-screen content skipping for low CPU overhead on long scroll */
+  section:not(#inicio) {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 700px;
+  }
 }
 
 .container { width: min(100% - 2rem, 1280px); margin-inline: auto; }
 
 .noise {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+  contain: paint;
+  will-change: auto;
 }
 
 .hero-atmosphere {
@@ -120,12 +121,99 @@
     radial-gradient(circle at 76% 42%, var(--sg-glow), transparent 35%);
 }
 
-.logo-premium {
-  animation: logo-breathe 4.8s ease-in-out infinite;
-  transform: translateZ(0);
+/* September seasonal accents: Chilean colors kept as restrained details. */
+html:not(.patriotic-season) .seasonal-only,
+.patriotic-season .standard-only {
+  display: none !important;
 }
 
-.float-slow { animation: float 7s ease-in-out infinite; }
+.patriotic-season .patria-ribbon {
+  background: linear-gradient(90deg, #d9282f 0 33%, #fff8ed 33% 66%, #123b72 66%);
+  background-size: 300% 100%;
+  animation: patria-shift 8s ease-in-out infinite;
+}
+
+@keyframes patria-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.patriotic-season .patria-chip {
+  border-color: rgb(217 40 47 / .35);
+  background: linear-gradient(110deg, rgb(217 40 47 / .14), rgb(18 59 114 / .18));
+}
+
+.patriotic-season .patria-garland {
+  transform-origin: 50% 0;
+  animation: patria-garland-sway 9s ease-in-out infinite;
+}
+
+/* A thin tricolor seam gives every block a shared seasonal rhythm. */
+.patriotic-season main > section:not(#inicio) {
+  position: relative;
+}
+
+.patriotic-season main > section:not(#inicio)::before {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 50%;
+  width: min(88%, 1120px);
+  height: 2px;
+  content: "";
+  pointer-events: none;
+  transform: translateX(-50%);
+  opacity: .58;
+  background: linear-gradient(90deg, transparent, #123b72 18% 42%, #fff8ed 42% 58%, #d9282f 58% 82%, transparent);
+  box-shadow: 0 0 18px rgb(232 59 22 / .12);
+}
+
+.seasonal-sway {
+  transform-origin: 50% 0;
+  animation: seasonal-sway 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.seasonal-float {
+  animation: seasonal-float 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+.seasonal-ribbon {
+  animation: seasonal-ribbon 9s ease-in-out infinite;
+  will-change: transform;
+}
+
+:root[data-theme="dark"] .seasonal-cueca {
+  filter: invert(1);
+}
+
+@keyframes seasonal-sway {
+  0%, 100% { transform: rotate(-.7deg) translateY(0); }
+  50% { transform: rotate(.7deg) translateY(6px); }
+}
+
+@keyframes seasonal-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-2deg); }
+  50% { transform: translate3d(0, -10px, 0) rotate(2deg); }
+}
+
+@keyframes seasonal-ribbon {
+  0%, 100% { transform: translate3d(-1%, 0, 0) scale(1); }
+  50% { transform: translate3d(1%, -4px, 0) scale(1.015); }
+}
+
+@keyframes patria-garland-sway {
+  0%, 100% { transform: rotate(-.6deg) translateY(0); }
+  50% { transform: rotate(.6deg) translateY(5px); }
+}
+
+.logo-premium {
+  animation: logo-breathe 4.8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.float-slow { animation: float 7s ease-in-out infinite; will-change: transform; }
 
 .photo-studio {
   filter: saturate(.92) contrast(1.06) brightness(.96);
@@ -153,6 +241,13 @@
   filter: saturate(1.05) contrast(1.08) brightness(.9);
 }
 
+/* Opaque fallbacks for non-GPU / older browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(10px)) {
+  [class*="backdrop-blur"] {
+    background-color: var(--sg-nav) !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -160,4 +255,10 @@
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+  .seasonal-sway,
+  .seasonal-float,
+  .seasonal-ribbon {
+    will-change: auto;
+  }
 }
+

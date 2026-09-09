@@ -76,8 +76,9 @@ const structuredData = {
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="image" href="/images/products/burger-hero.webp" type="image/webp" fetchpriority="high" />
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
@@ -98,6 +99,18 @@ const structuredData = {
     <script is:inline>
       (() => {
         document.documentElement.dataset.theme = 'dark';
+
+        const monthInSantiago = Number(
+          new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Santiago',
+            month: 'numeric',
+          }).format(new Date()),
+        );
+
+        document.documentElement.classList.toggle(
+          'patriotic-season',
+          monthInSantiago === 9,
+        );
       })();
     </script>
 

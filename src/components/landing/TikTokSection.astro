@@ -6,13 +6,13 @@ const realTikTokVideos = [
   {
     id: "7668534587026345223",
     url: "https://www.tiktok.com/@sanguchoncl/video/7668534587026345223",
-    title: "Alguien más de santo? #fyp #fypシ",
+    title: "Alguien más de santo? #fyp #sanguchon",
     image: "/images/tiktok/video1.jpg",
     views: "29.2K",
     likes: "3.4K",
     duration: "0:28",
     tag: "#SANTO",
-    isNew: true,
+    isNew: false,
   },
   {
     id: "7665481226551102728",
@@ -25,6 +25,17 @@ const realTikTokVideos = [
     tag: "#TRIPLE",
     isNew: false,
   },
+  {
+    id: SITE_INFO.latestTikTokVideoId,
+    url: SITE_INFO.latestTikTokVideoUrl,
+    title: "Cosas que pasan 🤣 #fpyシ",
+    image: "/images/tiktok/latest-video.webp",
+    views: "Nuevo",
+    likes: "",
+    duration: "",
+    tag: "#NUEVO",
+    isNew: true,
+  },
 ];
 ---
 
@@ -32,13 +43,20 @@ const realTikTokVideos = [
   id="tiktok"
   class="relative overflow-hidden border-b border-line bg-charcoal py-18 text-white sm:py-24"
 >
+  <img
+    src="/images/seasonal/18-septiembre/guirnalda-papel.png"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    class="seasonal-only seasonal-sway pointer-events-none absolute -right-28 top-3 w-[min(76vw,720px)] opacity-[.1]"
+  />
   <!-- Ambient Gradient Accents -->
   <div
-    class="pointer-events-none absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-[#00f2fe]/10 blur-[130px]"
+    class="pointer-events-none absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(0,242,254,0.12),transparent_70%)]"
     aria-hidden="true"
   ></div>
   <div
-    class="pointer-events-none absolute -right-32 bottom-1/4 h-96 w-96 rounded-full bg-[#ff0050]/15 blur-[130px]"
+    class="pointer-events-none absolute -right-32 bottom-1/4 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(255,0,80,0.14),transparent_70%)]"
     aria-hidden="true"
   ></div>
 
@@ -48,7 +66,7 @@ const realTikTokVideos = [
       class="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
     >
       <div class="max-w-xl">
-        <div class="mb-4 flex items-center gap-3">
+        <div class="mb-4 flex flex-wrap items-center gap-2 sm:gap-3">
           <span
             class="flex items-center gap-2 rounded-full border border-[#ff0050]/40 bg-[#ff0050]/10 px-3.5 py-1 text-[0.65rem] font-bold uppercase tracking-[.2em] text-[#ff4b72]"
           >
@@ -64,7 +82,8 @@ const realTikTokVideos = [
             </svg>
             06 / EN VIVO EN TIKTOK
           </span>
-          <span class="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold">
+          <span class="seasonal-only patria-chip inline-flex items-center rounded-full border px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[.16em] text-white/80">Especial de septiembre</span>
+          <span class="flex w-full items-center gap-1.5 text-xs font-semibold text-emerald-400 sm:w-auto">
             <span class="relative flex size-2">
               <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
               <span class="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
@@ -101,7 +120,7 @@ const realTikTokVideos = [
             <div class="relative">
               <img
                 src={logoSanGuchon.src}
-                alt="Sanguchón logo"
+                alt="Sanguchon logo"
                 class="size-11 rounded-full border border-cheese/40 bg-black/50 p-1 object-contain shadow"
               />
               <span
@@ -299,7 +318,7 @@ const realTikTokVideos = [
             NUEVOS VIDEOS APARECEN AUTOMÁTICAMENTE
           </h4>
           <p class="mt-2 text-xs leading-relaxed text-white/60">
-            Cuando el equipo de Sanguchón suba un nuevo TikTok, la portada y las estadísticas se muestran de inmediato.
+            Cuando el equipo de Sanguchon suba un nuevo TikTok, la portada y las estadísticas se muestran de inmediato.
           </p>
         </div>
 
