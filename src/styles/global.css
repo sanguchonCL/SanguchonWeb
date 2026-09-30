@@ -123,8 +123,7 @@
 }
 
 /* September seasonal accents: Chilean colors kept as restrained details. */
-html:not(.patriotic-season) .seasonal-only,
-.patriotic-season .standard-only {
+.seasonal-only {
   display: none !important;
 }
 
