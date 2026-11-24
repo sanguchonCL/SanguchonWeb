@@ -47,4 +47,81 @@
       </div>
     </div>
   </div>
+  <figure class="container relative z-10 mt-10 sm:mt-14">
+    <div class="relative mx-auto aspect-[4/3] max-w-4xl overflow-hidden rounded-2xl bg-charcoal sm:aspect-video">
+      <img
+        src="/videos/sanguchon-parrilla.webp"
+        alt="Hamburguesa preparándose en la parrilla de Sanguchon"
+        width="960"
+        height="540"
+        loading="lazy"
+        decoding="async"
+        class="h-full w-full object-cover"
+      />
+      <video
+        id="historia-video"
+        data-src="/videos/sanguchon-parrilla.mp4"
+        class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-0"
+        aria-hidden="true"
+        muted
+        loop
+        playsinline
+        preload="none"
+      ></video>
+      <button
+        id="historia-video-toggle"
+        type="button"
+        class="absolute bottom-3 right-3 min-h-11 rounded-full bg-black/80 px-4 text-sm font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:bottom-5 sm:right-5"
+        hidden
+      >Reproducir video</button>
+    </div>
+  </figure>
 </section>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>("#historia-video");
+  const button = document.querySelector<HTMLButtonElement>("#historia-video-toggle");
+
+  if (video && button && video.dataset.src) {
+    const source = video.dataset.src;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let playbackRequested: boolean | undefined;
+    let inView = false;
+
+    function updatePlayback() {
+      if (!video) return;
+      const shouldPlay = playbackRequested ?? !reducedMotion.matches;
+
+      if (!inView || document.hidden || !shouldPlay) {
+        video.pause();
+        return;
+      }
+
+      if (!video.hasAttribute("src")) video.src = source;
+      void video.play().catch(() => {});
+    }
+
+    video.addEventListener("playing", () => {
+      video.classList.remove("opacity-0");
+      button.textContent = "Pausar video";
+    });
+    video.addEventListener("pause", () => {
+      button.textContent = "Reproducir video";
+    });
+    button.addEventListener("click", () => {
+      playbackRequested = video.paused;
+      inView = true;
+      updatePlayback();
+    });
+
+    button.hidden = false;
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([entry]) => {
+        inView = entry.intersectionRatio >= 0.25;
+        updatePlayback();
+      }, { threshold: 0.25 }).observe(video);
+    }
+    reducedMotion.addEventListener("change", updatePlayback);
+    document.addEventListener("visibilitychange", updatePlayback);
+  }
+</script>
