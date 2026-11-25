@@ -1,0 +1,249 @@
+---
+import ChristmasOrnament from "./ChristmasOrnament.astro";
+
+const backSnow = [11, 17, 23, 29, 35, 41, 46, 53, 59, 65, 71, 77, 83, 89];
+const frontSnow = [15, 25, 36, 53, 67, 76, 86];
+const embers = [29, 37, 46, 58, 67, 73];
+---
+
+<div class="snow-globe">
+  <div class="snow-globe__cutaway">
+    <div class="snow-globe__dome rounded-full overflow-hidden">
+      <div class="snow-globe__snowdrift" aria-hidden="true"></div>
+      <div class="snow-globe__contact" aria-hidden="true"></div>
+      <div class="snow-globe__snow snow-globe__snow--back" aria-hidden="true">
+        {backSnow.map((left, index) => (
+          <i style={`--x:${left}%;--y:${18 + index * 31 % 60}%;--delay:${-index * .83}s;--speed:${7 + index % 4}s`}></i>
+        ))}
+      </div>
+      <img
+        class="snow-globe__burger"
+        src="/images/products/burger-hero.webp"
+        srcset="/images/products/burger-hero-640.webp 640w, /images/products/burger-hero.webp 1200w"
+        sizes="(max-width: 520px) 70vw, 350px"
+        width="1200"
+        height="1200"
+        alt="Hamburguesa artesanal Sanguchon"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div class="snow-globe__snow snow-globe__snow--front" aria-hidden="true">
+        {frontSnow.map((left, index) => (
+          <i style={`--x:${left}%;--y:${21 + index * 19 % 54}%;--delay:${-index * 1.16}s;--speed:${6 + index % 3}s`}></i>
+        ))}
+        {embers.map((left, index) => (
+          <b style={`--x:${left}%;--y:${62 + index * 7 % 20}%;--delay:${-index * .69}s`}></b>
+        ))}
+      </div>
+      <div class="snow-globe__glass" aria-hidden="true"></div>
+      <svg class="snow-globe__reflection" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+        <path class="snow-globe__reflection-bloom" d="M 47 136 C 63 95 98 63 150 44" />
+        <path class="snow-globe__reflection-core" d="M 54 122 C 71 89 102 63 140 49" />
+      </svg>
+    </div>
+  </div>
+  <div class="snow-globe__base">
+    <span class="snow-globe__plaque">EDICIÓN NAVIDAD • 2026</span>
+  </div>
+  <ChristmasOrnament />
+</div>
+
+<style>
+  .snow-globe {
+    position: relative;
+    isolation: isolate;
+    container-type: inline-size;
+    width: 100%;
+    aspect-ratio: 1 / 1.04;
+  }
+
+  .snow-globe__cutaway {
+    position: absolute;
+    inset: 0 0 auto;
+    aspect-ratio: 1;
+    /* Cut the glass at the same height as the pedestal's socket. */
+    clip-path: inset(-15% -15% 14%);
+  }
+
+  .snow-globe__dome {
+    position: absolute;
+    inset: 0;
+    isolation: isolate;
+    border: 1px solid rgb(255 242 219 / .57);
+    background:
+      radial-gradient(ellipse at 50% 81%, #fda64755, transparent 42%),
+      radial-gradient(ellipse at 29% 17%, #eff8f129, transparent 44%),
+      radial-gradient(circle at 50% 44%, #522b25 10%, #251518 64%, #150e17 100%);
+    box-shadow: 0 20px 50px rgb(0 0 0 / .8), 0 0 25px #ffc88021;
+  }
+
+  .snow-globe__burger {
+    position: absolute;
+    z-index: 2;
+    top: 13%;
+    left: 10.5%;
+    width: 78%;
+    height: auto;
+    filter: drop-shadow(0 .5rem .7rem #14070675);
+  }
+
+  .snow-globe__snowdrift,
+  .snow-globe__contact {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .snow-globe__snowdrift {
+    inset: 77% 12% 10%;
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse at 22% 58%, #fff3d2be, transparent 27%),
+      radial-gradient(ellipse at 77% 53%, #fff6d3bd, transparent 28%),
+      radial-gradient(ellipse at 50% 64%, #e8cba6bc, #f6e8d04d 54%, transparent 72%);
+  }
+
+  .snow-globe__contact {
+    z-index: 1;
+    inset: 78% 22% 14%;
+    background: radial-gradient(ellipse at center, #160908e8 10%, #27110d9c 39%, transparent 71%);
+  }
+
+  .snow-globe__snow,
+  .snow-globe__glass,
+  .snow-globe__reflection {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .snow-globe__snow--front { z-index: 3; }
+
+  .snow-globe__snow :is(i, b) {
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    border-radius: 50%;
+  }
+
+  .snow-globe__snow i {
+    width: clamp(1px, .65cqw, 3px);
+    aspect-ratio: 1;
+    background: #fff6df;
+    opacity: .56;
+  }
+
+  .snow-globe__snow--front i {
+    width: clamp(3px, 1.35cqw, 6px);
+    filter: blur(1px);
+    opacity: .35;
+  }
+
+  .snow-globe__snow b {
+    width: 2px;
+    height: 4px;
+    background: #fff1ae;
+    box-shadow: 0 0 6px 1px #ff9f3a;
+    opacity: .5;
+  }
+
+  .snow-globe__glass {
+    z-index: 4;
+    border-radius: inherit;
+    background:
+      radial-gradient(ellipse at 55% 90%, #ffab604a, transparent 29%),
+      radial-gradient(ellipse at 96% 42%, #f1f4f04d, transparent 12%);
+    box-shadow: inset 0 0 30px #ffffff2e, inset 0 8px 20px #fde68a4d, inset 0 0 0 2px #fff0d319;
+  }
+
+  .snow-globe__reflection { z-index: 5; width: 100%; height: 100%; }
+  .snow-globe__reflection path { stroke: #fff7e9; stroke-linecap: round; }
+  .snow-globe__reflection-bloom { stroke-width: 9; opacity: .25; filter: blur(4px); }
+  .snow-globe__reflection-core { stroke-width: 2.4; opacity: .46; filter: blur(1px); }
+
+  .snow-globe__base {
+    position: absolute;
+    z-index: 6;
+    inset: 85cqw 12% 1%;
+    display: grid;
+    place-items: center;
+    padding-top: 1.3%;
+    border: 1px solid #bf915d;
+    border-radius: 12% 12% 18% 18% / 19% 19% 24% 24%;
+    background:
+      repeating-linear-gradient(0deg, #fff5d90b 0 1px, #2b110b12 1px 3px),
+      linear-gradient(90deg, #42231b 0%, #98623b 13%, #f1c589 30%, #896044 48%, #d6a164 69%, #6a402c 91%, #321a15);
+    box-shadow: inset 0 2px 7px #1c0e09c9, inset 0 -4px 5px #2a140eaa, 0 12px 24px #0008;
+  }
+
+  .snow-globe__base::before {
+    content: "";
+    position: absolute;
+    inset: -7% -1% auto;
+    height: 25%;
+    border-radius: 50%;
+    border: 1px solid #c39869;
+    background: linear-gradient(#573421, #1e100e 38%, #97603b 60%, #f2cd96 88%, #5a3322);
+    box-shadow: 0 2px 3px #2d160c9c;
+  }
+
+  .snow-globe__plaque {
+    display: block;
+    padding: .35em .82em;
+    border: 1px solid #684934;
+    border-radius: .28rem;
+    background: linear-gradient(160deg, #f6d5a3, #cf9e61 56%, #a37148);
+    box-shadow: inset 0 1px 1px #ffe0b9, 0 1px 3px #3a241c99;
+    color: #2f1b14;
+    font-size: clamp(.56rem, 2.6cqw, .75rem);
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-shadow: 0 1px #ffdbab9e;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .snow-globe__snow i {
+      top: -3%;
+      animation: globe-fall var(--speed) var(--delay) linear infinite;
+    }
+    .snow-globe__snow b { animation: globe-ember 3.2s var(--delay) ease-out infinite; }
+  }
+
+  @keyframes globe-fall {
+    from { transform: translate3d(-4px, 0, 0); }
+    to { transform: translate3d(8px, 91cqw, 0); }
+  }
+
+  @keyframes globe-ember {
+    0%, 100% { opacity: 0; }
+    23% { opacity: .72; }
+    100% { transform: translate3d(6px, -21cqw, 0) scale(.45); }
+  }
+
+  @media (width < 768px) {
+    .snow-globe__burger { top: 17%; }
+    .snow-globe__contact {
+      inset: 82% 22% 13%;
+      background: radial-gradient(ellipse, rgba(0, 0, 0, .85) 10%, #1c0d09a8 42%, transparent 73%);
+    }
+    .snow-globe__snowdrift {
+      inset: 79% 10% 12%;
+      background:
+        radial-gradient(ellipse at 22% 67%, #fff1d9d9, transparent 28%),
+        radial-gradient(ellipse at 77% 62%, #fff5e0d9, transparent 27%),
+        radial-gradient(ellipse at 50% 69%, #f6e6d1cc, #f7e8d467 52%, transparent 74%);
+    }
+    .snow-globe__snow--back i {
+      width: clamp(2px, .9cqw, 4px);
+      background: #fff9e8;
+      box-shadow: 0 0 4px #fff3ce8c;
+      opacity: .82;
+    }
+    .snow-globe__snow--front i {
+      width: clamp(4px, 1.6cqw, 7px);
+      filter: blur(1.1px);
+      box-shadow: 0 0 5px #fff4db8c;
+      opacity: .63;
+    }
+    .snow-globe__snow b:nth-of-type(even) { display: none; }
+  }
+</style>

@@ -1,0 +1,133 @@
+---
+import { menuItems } from "../../data/menu";
+import { SITE_INFO } from "../../data/site-info";
+import ChristmasSnow from "../ChristmasSnow.astro";
+const photoIds = ["labendita", "hamburguesas", "pecado-capital"];
+---
+
+<section id="especialidades" class="holiday-menu py-16 sm:py-24" aria-labelledby="holiday-menu-title">
+  <ChristmasSnow />
+  <div class="container relative z-10">
+    <div class="mb-8 flex flex-wrap items-end justify-between gap-5 sm:mb-12">
+      <div data-christmas-reveal>
+        <h2 id="holiday-menu-title" class="font-display text-[clamp(2.7rem,8vw,5.5rem)] uppercase leading-[.92] text-[#fff4e4]">
+          El bajón de <span class="holiday-gold">diciembre</span>
+        </h2>
+        <p class="mt-4 max-w-md text-sm leading-relaxed text-[#e6cdbc] sm:text-base">Tres favoritos de la casa, todos con papas fritas.</p>
+      </div>
+      <a href={SITE_INFO.menuUrl} target="_blank" rel="noopener noreferrer" class="holiday-cta inline-flex min-h-12 items-center rounded-full border border-[#f4cd8a]/55 px-5 text-sm font-bold text-[#ffe5b7]">
+        Ver carta completa <span class="ml-2" aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+    <div class="holiday-bento grid gap-4 lg:grid-cols-[1.15fr_.85fr]">
+      {menuItems.map((item, index) => (
+        <article class:list={["holiday-card min-w-0", index === 0 && "holiday-card-main"]} data-christmas-reveal data-holiday-card>
+          <img
+            src={`/images/seasonal/navidad/carta-${photoIds[index]}-900.webp`}
+            srcset={`/images/seasonal/navidad/carta-${photoIds[index]}-520.webp 520w, /images/seasonal/navidad/carta-${photoIds[index]}-900.webp 900w`}
+            sizes={index === 0 ? "(max-width: 1023px) 94vw, 56vw" : "(max-width: 639px) 94vw, 46vw"}
+            alt={item.title}
+            width="900"
+            height="780"
+            loading="lazy"
+            decoding="async"
+            class="holiday-product"
+          />
+          <span class="holiday-card-frost" aria-hidden="true"></span>
+          <div class="holiday-card-copy">
+            <h3 class="font-display text-3xl uppercase text-[#fff4e4] sm:text-4xl">{item.title}</h3>
+            <p class="mt-2 max-w-md text-sm leading-relaxed text-[#efd8c7]">{item.description}</p>
+            {item.includes && <p class="mt-3 text-xs font-bold text-[#ffe0a2]">{item.includes}</p>}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .holiday-menu {
+    background: radial-gradient(ellipse at 10% 20%, #53203268, transparent 55%),
+      radial-gradient(ellipse at 93% 95%, #064e3b40, transparent 54%), #100b0d;
+  }
+  .holiday-card {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: end;
+    min-height: 19rem;
+    overflow: hidden;
+    border: 1px solid #ffd98e42;
+    border-radius: 1.35rem;
+    background-color: #271018;
+  }
+  .holiday-card::before {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border: 1px solid transparent;
+    border-radius: inherit;
+    background: radial-gradient(15rem circle at var(--spot-x, 50%) var(--spot-y, 50%), #ffd78fbd, transparent 64%) border-box;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s;
+    content: "";
+  }
+  .holiday-card:hover::before { opacity: 1; }
+  .holiday-card-frost {
+    position: absolute;
+    inset: 0 16% auto 0;
+    z-index: 1;
+    height: 11px;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 10% 0%, #fff7e2 42%, transparent 68%) 0 0 / 31% 11px repeat-x,
+      linear-gradient(#fff3dc95, transparent);
+    mask-image: linear-gradient(90deg, #000e, #0007 46%, transparent);
+    opacity: .8;
+  }
+  .holiday-card::after {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(to top, #10080bf5 2%, #180b10bb 29%, #26111900 66%);
+    content: "";
+  }
+  .holiday-product {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 60%;
+  }
+  .holiday-card-copy { padding: clamp(1.25rem, 4vw, 2.15rem); }
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .holiday-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .holiday-card-main { grid-column: span 2; min-height: 25rem; }
+  }
+  @media (min-width: 1024px) {
+    .holiday-card { min-height: 16rem; }
+    .holiday-card-main { grid-row: span 2; }
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .holiday-product { transition: transform .68s cubic-bezier(.16, 1, .3, 1); }
+    .holiday-card:hover .holiday-product { transform: scale(1.05); }
+  }
+</style>
+
+<script>
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+  for (const card of document.querySelectorAll<HTMLElement>("[data-holiday-card]")) {
+    card.addEventListener("pointermove", (event) => {
+      if (!finePointer.matches || event.pointerType !== "mouse") return;
+      const bounds = card.getBoundingClientRect();
+      card.style.setProperty("--spot-x", `${event.clientX - bounds.left}px`);
+      card.style.setProperty("--spot-y", `${event.clientY - bounds.top}px`);
+    }, { passive: true });
+  }
+</script>

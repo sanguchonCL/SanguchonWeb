@@ -2,8 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Splash from "../components/Splash.astro";
 import Navbar from "../components/Navbar.astro";
-import Hero from "../components/landing/Hero.astro";
-import BestSellers from "../components/landing/BestSellers.astro";
+import HeroNavidad from "../components/landing/HeroNavidad.astro";
+import BentoCombosNavidad from "../components/landing/BentoCombosNavidad.astro";
+import ChristmasMarquee from "../components/ChristmasMarquee.astro";
+import ChristmasSnow from "../components/ChristmasSnow.astro";
 import SeccionSantoral from "../components/react/SeccionSantoral.tsx";
 import Anatomia from "../components/landing/Anatomia.astro";
 import Historia from "../components/landing/Historia.astro";
@@ -17,10 +19,16 @@ import Footer from "../components/Footer.astro";
   <Splash />
   <Navbar />
   <main>
-    <Hero />
-    <BestSellers />
+    <HeroNavidad />
+    <ChristmasMarquee />
+    <BentoCombosNavidad />
     <Anatomia />
-    <SeccionSantoral client:visible />
+    <div class="relative isolate overflow-hidden">
+      <ChristmasSnow />
+      <div class="relative z-10">
+        <SeccionSantoral client:load />
+      </div>
+    </div>
     <Historia />
     <Ubicacion />
     <TikTokSection />
@@ -28,3 +36,33 @@ import Footer from "../components/Footer.astro";
   </main>
   <Footer />
 </BaseLayout>
+
+<script>
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (!reducedMotion.matches && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        if (!isIntersecting) return;
+        target.classList.add("holiday-revealed");
+        observer.unobserve(target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px" });
+
+    document.querySelectorAll("[data-christmas-reveal]").forEach((item) => observer.observe(item));
+  }
+
+  if ("IntersectionObserver" in window) {
+    const ambientObserver = new IntersectionObserver((entries) => {
+      for (const { target, isIntersecting } of entries) {
+        target.toggleAttribute("data-ambient-paused", !isIntersecting);
+      }
+    });
+    document.querySelectorAll("main > section, main > div, footer")
+      .forEach((section) => ambientObserver.observe(section));
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    document.documentElement.toggleAttribute("data-tab-hidden", document.hidden);
+  });
+</script>

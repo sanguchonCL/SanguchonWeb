@@ -20,12 +20,11 @@ const structuredData = {
       url: SITE_INFO.url,
       logo: `${SITE_INFO.url}/images/brand/logo-san-guchon.webp`,
       image: `${SITE_INFO.url}${SITE_INFO.ogImage}`,
-      telephone: SITE_INFO.phone,
       email: SITE_INFO.email,
       priceRange: "$$",
       servesCuisine: ["Sanguchería", "Completos", "Sánguches", "Hamburguesas", "Comida rápida"],
       menu: `${SITE_INFO.url}${SITE_INFO.menuUrl}`,
-      sameAs: [SITE_INFO.instagramUrl],
+      sameAs: [SITE_INFO.instagramUrl, SITE_INFO.tiktokUrl],
       address: {
         "@type": "PostalAddress",
         streetAddress: SITE_INFO.streetAddress,
@@ -59,11 +58,11 @@ const structuredData = {
 ---
 
 <!doctype html>
-<html lang="es" data-theme="dark">
+<html lang="es" data-theme="dark" data-season="navidad">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#100d0b" />
+    <meta name="theme-color" content="#170f10" />
     <meta name="color-scheme" content="dark" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href={SITE_INFO.url} />
