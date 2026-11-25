@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { motion, useAnimation, useAnimationFrame, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useAnimation, useMotionValueEvent, useScroll, useSpring, useTransform } from 'framer-motion';
 
 const layers = [
   { id: 'bun-top', title: 'PAN BRIOCHE', description: 'Dorado, suave y firme para sostener todo el ritual.', image: '/images/anatomy/pan-brioche-top.webp', spread: -116, float: 7, duration: 3, delay: 0 },
@@ -8,27 +8,11 @@ const layers = [
   { id: 'bun-bottom', title: 'BASE SAGRADA', description: 'La última capa: salsa de la casa y estructura hasta el final.', image: '/images/anatomy/pan-brioche-base.webp', spread: 112, float: 4, duration: 4.4, delay: .95 },
 ];
 
-function useIdleOffset(amplitude, duration, delay, progress) {
-  const idle = useMotionValue(0);
-  const reducedMotion = useReducedMotion();
-  useAnimationFrame((time) => {
-    if (reducedMotion || progress.get() > .14) return idle.set(0);
-    const seconds = Math.max(0, time / 1000 - delay);
-    idle.set(Math.sin((seconds / duration) * Math.PI * 2) * amplitude);
-  });
-  return idle;
-}
-
 function AnatomyLayer({ layer, index, progress }) {
-  const idle = useIdleOffset(layer.float, layer.duration, layer.delay, progress);
-  const assembledY = useTransform(progress, [0, .78, .92], [layer.spread, layer.spread * .08, 0]);
-  const y = useTransform(
-    [assembledY, idle, progress],
-    ([assembled, breathing, amount]) => assembled + breathing * Math.max(0, 1 - amount * 7),
-  );
+  const y = useTransform(progress, [0, .78, .92], [layer.spread, layer.spread * .08, 0]);
   const scale = useSpring(useTransform(progress, [.7, .9, 1], [.985, 1.015, 1]), { stiffness: 180, damping: 18 });
   const opacity = useTransform(progress, [0, .1], [.78, 1]);
-  return <motion.div className="absolute inset-x-0 flex h-28 will-change-transform items-center justify-center sm:h-36" style={{ y, scale, opacity, zIndex: layers.length - index }}><motion.img src={layer.image} alt={layer.title} loading={index === 0 ? 'eager' : 'lazy'} className="h-full w-[min(88vw,25rem)] object-contain drop-shadow-lg" whileHover={{ scale: 1.025 }} transition={{ type: 'spring', stiffness: 260, damping: 20 }} /></motion.div>;
+  return <motion.div className="absolute inset-x-0 flex h-28 items-center justify-center sm:h-36" style={{ y, scale, opacity, zIndex: layers.length - index }}><img src={layer.image} alt="" loading="lazy" decoding="async" className="h-full w-[min(88vw,25rem)] object-contain drop-shadow-lg" /></motion.div>;
 }
 
 function LayerCopy({ layer, index, progress }) {
@@ -38,7 +22,7 @@ function LayerCopy({ layer, index, progress }) {
   return <motion.article style={{ opacity, x }} className="group border-l border-white/15 py-5 pl-5 transition-colors hover:border-[#ff5a1f]"><p className="mb-2 flex items-center gap-2 text-[.6rem] font-bold uppercase tracking-[.2em] text-[#ff5a1f]"><span className="h-px w-5 bg-[#ff5a1f] transition-all group-hover:w-9" />0{index + 1}</p><h3 className="font-display text-3xl leading-none tracking-wide text-[#fff8ed] sm:text-4xl">{layer.title}</h3><p className="mt-2 max-w-sm text-sm leading-relaxed text-white/60">{layer.description}</p></motion.article>;
 }
 
-export default function BurgerAnatomy() {
+function AnimatedAnatomy() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start 80%', 'end 45%'] });
   const progress = useSpring(scrollYProgress, { stiffness: 110, damping: 24, mass: .35 });
@@ -59,4 +43,32 @@ export default function BurgerAnatomy() {
       <p className="absolute bottom-0 text-[.6rem] font-bold uppercase tracking-[.22em] text-white/50 animate-pulse">Scroll para ensamblar <span aria-hidden="true">↓</span></p>
     </div></div>
   </div>;
+}
+
+export default function BurgerAnatomy() {
+  const [reducedMotion, setReducedMotion] = useState(null);
+  useEffect(() => {
+    const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setReducedMotion(preference.matches);
+    sync();
+    preference.addEventListener('change', sync);
+    return () => preference.removeEventListener('change', sync);
+  }, []);
+
+  return (
+    <>
+      {reducedMotion === false && <div className="motion-reduce:hidden"><AnimatedAnatomy /></div>}
+      <ul className={`${reducedMotion === false ? 'hidden motion-reduce:grid' : 'grid'} gap-4 py-4 sm:grid-cols-2`}>
+        {layers.map((layer) => (
+          <li key={layer.id} className="grid grid-cols-[4rem_minmax(0,1fr)] items-center gap-4 rounded-xl border border-white/15 bg-white/5 p-4">
+            <img src={layer.image} alt="" width="64" height="64" loading="lazy" decoding="async" className="size-16 object-contain" />
+            <div>
+              <h3 className="font-display text-lg text-[#fff8ed]">{layer.title}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-white/80">{layer.description}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 }

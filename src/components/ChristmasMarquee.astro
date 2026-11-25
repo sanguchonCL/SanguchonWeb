@@ -1,0 +1,46 @@
+---
+import ChristmasSnow from "./ChristmasSnow.astro";
+---
+
+<div class="holiday-marquee" aria-label="Navidad a la plancha · Sanguchonería de barrio · San Miguel">
+  <ChristmasSnow />
+  <div aria-hidden="true" class="holiday-marquee-track relative z-10">
+    {Array.from({ length: 4 }, () => (
+      <span>Navidad a la plancha ✦ Sanguchería de barrio ✦ San Miguel ✦&nbsp;</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .holiday-marquee {
+    position: relative;
+    overflow: hidden;
+    padding: .7rem 0;
+    border-block: 1px solid #e6a96b32;
+    background: #251319;
+    color: #dcb992;
+    font-family: var(--font-display);
+    font-size: clamp(.85rem, 2vw, 1.18rem);
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+  .holiday-marquee::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 7px;
+    background: radial-gradient(ellipse at center top, #fff4df49 12%, transparent 71%) 0 0 / 96px 8px repeat-x;
+    pointer-events: none;
+    content: "";
+  }
+  .holiday-marquee-track {
+    display: flex;
+    width: max-content;
+    white-space: nowrap;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .holiday-marquee-track { animation: holiday-marquee 24s linear infinite; }
+  }
+  @keyframes holiday-marquee {
+    to { transform: translateX(-25%); }
+  }
+</style>

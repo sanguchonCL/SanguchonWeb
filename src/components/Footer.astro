@@ -1,11 +1,13 @@
 ---
 import { SITE_INFO } from "../data/site-info";
+import ChristmasSnow from "./ChristmasSnow.astro";
 ---
 
 <footer
   id="contacto"
   class="relative overflow-hidden border-t border-white/10 bg-charcoal pt-0 text-white"
 >
+  <ChristmasSnow />
   <img
     src="/images/seasonal/18-septiembre/cinta-chile.webp"
     alt=""
@@ -29,7 +31,7 @@ import { SITE_INFO } from "../data/site-info";
     </div>
   </div>
 
-  <div class="container grid gap-12 py-16 md:grid-cols-[1.4fr_.6fr_.8fr]">
+  <div class="container relative z-10 grid gap-12 py-16 md:grid-cols-[1.4fr_.6fr_.8fr]">
     <div>
       <a href="#inicio" class="flex w-fit items-center gap-4">
         <img
@@ -58,7 +60,7 @@ import { SITE_INFO } from "../data/site-info";
         Navega
       </p>
       <div class="flex flex-col gap-3 text-sm text-white/75">
-        <a href="#especialidades" class="hover:text-cheese">Best sellers</a>
+        <a href="#especialidades" class="hover:text-cheese">Carta</a>
         <a href="#anatomia" class="hover:text-cheese">El milagro</a>
         <a href="#santoral" class="hover:text-cheese">Santoral</a>
         <a href="#tiktok" class="hover:text-cheese">TikTok</a>
@@ -132,9 +134,9 @@ import { SITE_INFO } from "../data/site-info";
   </div>
 
   <div
-    class="container flex flex-col items-center gap-4 border-t border-white/10 py-6 text-[0.65rem] font-bold uppercase tracking-[.14em] text-white/40 sm:flex-row sm:items-center sm:justify-between"
+    class="container relative z-10 flex flex-col items-center gap-4 border-t border-white/10 py-6 text-[0.65rem] font-bold uppercase tracking-[.14em] text-white/40 sm:flex-row sm:items-center sm:justify-between"
   >
-    <span>© 2026 Sanguchon</span>
+    <span>© 2026 Sanguchon · <a href="https://openmoji.org/" class="underline">Adornos OpenMoji</a> en WebP · <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="underline">CC BY-SA 4.0</a></span>
     <a
       href={SITE_INFO.linkedinUrl}
       target="_blank"

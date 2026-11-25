@@ -1,0 +1,81 @@
+---
+const flakes = [
+  [5, 13, -13, 17, -12], [15, 9, -7, 21, 12], [27, 12, -17, 19, -9],
+  [39, 8, -3, 23, 11], [52, 12, -11, 18, -12], [64, 9, -19, 22, 9],
+  [76, 14, -5, 20, -10], [88, 8, -15, 24, 12], [96, 12, -9, 19, -8],
+];
+---
+
+<div class="christmas-snow" aria-hidden="true">
+  {flakes.map(([left, size, delay, duration, drift]) => (
+    <span style={`--left:${left}%;--size:${size}px;--delay:${delay}s;--duration:${duration}s;--drift:${drift}px`}></span>
+  ))}
+</div>
+
+<style>
+  .christmas-snow {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+    contain: strict;
+  }
+  span {
+    position: absolute;
+    top: -16px;
+    left: var(--left);
+    width: var(--size);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    color: #fff0d2;
+    font-size: var(--size);
+    line-height: 1;
+    opacity: .46;
+    text-shadow: 0 0 7px rgb(255 231 185 / .42);
+  }
+  span::before { content: "❄"; }
+  .christmas-snow[data-visible] span {
+    animation: snowfall var(--duration) var(--delay) linear infinite;
+    will-change: transform;
+  }
+  @keyframes snowfall {
+    0% { transform: translate3d(0, -16px, 0) rotate(0); }
+    100% { transform: translate3d(var(--drift), var(--snow-distance, 700px), 0) rotate(100deg); }
+  }
+  @media (max-width: 639px) {
+    span:nth-child(2n) { display: none; }
+    span { opacity: .34; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .christmas-snow span { display: none; }
+    .christmas-snow span:nth-child(4n) { display: block; opacity: .22; }
+    .christmas-snow[data-visible] span { animation: none; }
+  }
+</style>
+
+<script>
+  if ("IntersectionObserver" in window) {
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const { target, contentRect } of entries) {
+        target.style.setProperty("--snow-distance", `${contentRect.height + 20}px`);
+      }
+    });
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        entry.target.toggleAttribute("data-visible", entry.isIntersecting);
+      }
+    }, { rootMargin: "100px 0px" });
+
+    document.querySelectorAll<HTMLElement>(".christmas-snow").forEach((layer) => {
+      resizeObserver.observe(layer);
+      observer.observe(layer);
+    });
+    document.addEventListener("visibilitychange", () => {
+      document.querySelectorAll(".christmas-snow").forEach((layer) => {
+        layer.toggleAttribute("data-visible", !document.hidden && layer.getBoundingClientRect().bottom > 0 && layer.getBoundingClientRect().top < innerHeight);
+      });
+    });
+  }
+</script>

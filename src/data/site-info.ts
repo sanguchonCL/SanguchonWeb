@@ -6,7 +6,6 @@ export const SITE_INFO = {
   description:
     "Sanguchon: sanguchería de comida rápida con completos, sánguches, hamburguesas, papas y sabor de barrio.",
   address: "San Nicolás 1390, San Miguel, Santiago",
-  phone: "+56 9 1234 5678",
   email: "sanguchito1606@gmail.com",
   streetAddress: "San Nicolás 1390",
   postalCode: "8920057",

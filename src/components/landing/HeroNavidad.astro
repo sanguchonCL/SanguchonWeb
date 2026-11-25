@@ -1,0 +1,133 @@
+---
+import ChristmasSnow from "../ChristmasSnow.astro";
+import SnowGlobeBurger from "../SnowGlobeBurger.astro";
+import { SITE_INFO } from "../../data/site-info";
+---
+
+<section id="inicio" class="christmas-hero relative isolate overflow-hidden">
+  <ChristmasSnow />
+  <div class="hero-layout container relative grid items-center gap-8 md:grid-cols-2 lg:gap-12">
+    <div class="hero-copy relative z-10 min-w-0">
+      <p class="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[.19em] text-[#f3c48a]">
+        <span class="h-px w-7 bg-current" aria-hidden="true"></span> San Miguel, Santiago
+      </p>
+      <p class="holiday-edition mb-4 inline-flex rounded-full px-3 py-1.5 text-xs font-bold text-[#ffe2a6]">
+        Edición Navidad 2026
+      </p>
+      <h1 class="hero-title font-display uppercase text-[#fff6e9]">
+        <span class="block">Navidad</span>
+        <span class="holiday-gold block">a la plancha</span>
+      </h1>
+      <p class="mt-5 max-w-sm text-sm leading-relaxed text-[#f0d8c8] sm:text-base">
+        Hamburguesas a la plancha, completos y papas para compartir en el barrio.
+      </p>
+      <div class="hero-actions mt-7 flex flex-wrap items-center gap-3">
+        <a href={SITE_INFO.menuUrl} target="_blank" rel="noopener noreferrer" data-magnetic-cta class="hero-cta holiday-cta inline-flex min-h-12 items-center gap-3 rounded-full bg-[#ffc878] px-5 text-sm font-bold text-[#271111] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+          Ver la carta <span aria-hidden="true">↗</span>
+        </a>
+        <a href="#ubicacion" class="inline-flex min-h-12 items-center gap-2 rounded-full border border-[#f3c48a]/45 px-5 text-sm font-bold text-[#fff6e9] hover:border-[#ffc878] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+          Cómo llegar <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-stage relative mx-auto w-full max-w-[28rem] min-w-0">
+      <SnowGlobeBurger />
+    </div>
+  </div>
+</section>
+
+<style>
+  .christmas-hero {
+    padding-block: clamp(7.5rem, 13vw, 10rem) clamp(3rem, 7vw, 6rem);
+    background:
+      radial-gradient(ellipse at 76% 48%, #732f26 0%, transparent 49%),
+      radial-gradient(ellipse at 8% 100%, #8813374d, transparent 54%),
+      radial-gradient(ellipse at 100% 100%, #064e3b57, transparent 42%), #0b0b0c;
+    border-bottom: 1px solid #ffc87842;
+  }
+  @media (width < 768px) {
+    .christmas-hero {
+      padding-block: 6.6rem 1.4rem;
+      background:
+        radial-gradient(ellipse at 50% 70%, #773a2b 0%, #3e1b1c 36%, transparent 72%),
+        linear-gradient(180deg, #100c0d, #170e12 65%, #100c0e);
+    }
+    .hero-layout { gap: 1rem; }
+    .hero-copy { text-align: center; }
+    .hero-copy > p:first-child {
+      justify-content: center;
+      margin-bottom: .65rem;
+      font-size: .625rem;
+    }
+    .hero-copy > p:first-child span { display: none; }
+    .hero-copy > .holiday-edition { display: none; }
+    .hero-copy > p:last-of-type {
+      max-width: 31ch;
+      margin: .7rem auto 0;
+      line-height: 1.45;
+    }
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1.12fr 1fr;
+      gap: .5rem;
+      width: min(100%, 20rem);
+      margin: .95rem auto 0;
+    }
+    .hero-actions a {
+      justify-content: center;
+      min-height: 44px;
+      padding-inline: .35rem;
+      gap: .35rem;
+    }
+    .hero-stage { max-width: min(21rem, 46svh); }
+  }
+  @media (width < 768px) and (height <= 620px) {
+    .christmas-hero { padding-block-start: 6.15rem; }
+    .hero-layout { gap: .75rem; }
+    .hero-actions { margin-top: .75rem; }
+    .hero-stage { max-width: min(15rem, 40svh); }
+  }
+  @media (560px <= width < 768px) and (height <= 480px) and (orientation: landscape) {
+    .hero-layout { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+    .hero-stage { max-width: min(15rem, 54svh); }
+  }
+  .hero-title {
+    font-size: clamp(2.65rem, 10.65vw, 6rem);
+    line-height: .97;
+    letter-spacing: -.025em;
+  }
+  @media (768px <= width < 1024px) {
+    .hero-title { font-size: clamp(3rem, 6.8vw, 4.5rem); }
+  }
+  .hero-cta {
+    transition: background-color .2s ease, box-shadow .2s ease;
+  }
+  .hero-cta:hover {
+    background-color: #ffdb9e;
+    box-shadow: 0 8px 30px #ffc87838;
+  }
+  @media (min-width: 1024px) {
+    .hero-title { font-size: clamp(4rem, 6.4vw, 7rem); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-copy { animation: hero-reveal .65s .82s ease-out both; }
+    .hero-stage { animation: hero-reveal .8s .72s ease-out both; }
+    @keyframes hero-reveal {
+      from { opacity: .65; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+</style>
+
+<script>
+  const fineMotion = matchMedia("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
+  const cta = document.querySelector<HTMLElement>("[data-magnetic-cta]");
+
+  cta?.addEventListener("pointermove", (event) => {
+    if (!fineMotion.matches || event.pointerType !== "mouse") return;
+    const bounds = cta.getBoundingClientRect();
+    cta.style.translate = `${(event.clientX - bounds.left - bounds.width / 2) * .09}px ${(event.clientY - bounds.top - bounds.height / 2) * .12}px`;
+  }, { passive: true });
+  cta?.addEventListener("pointerleave", () => { cta.style.translate = ""; });
+</script>

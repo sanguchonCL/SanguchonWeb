@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../../tailwind.config.mjs";
 
 /* Design tokens: Tailwind utilities consume these semantic variables, so the
    entire UI changes theme without duplicating light/dark class lists. */
@@ -81,6 +82,7 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
     background: var(--sg-canvas);
   }
 
@@ -95,6 +97,10 @@
   }
 
   button, a { -webkit-tap-highlight-color: transparent; }
+  :where(a, button, input, select):focus-visible {
+    outline: 2px solid #ffd69b;
+    outline-offset: 3px;
+  }
   button { font: inherit; }
   a { color: inherit; text-decoration: none; }
   img { display: block; max-width: 100%; }
@@ -106,6 +112,28 @@
     content-visibility: auto;
     contain-intrinsic-size: 1px 700px;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  #feedback [class*="feedback-panel__"],
+  .santoral-reveal {
+    animation: none !important;
+  }
+}
+
+:is([data-ambient-paused], [data-tab-hidden]) *,
+:is([data-ambient-paused], [data-tab-hidden]) *::before,
+:is([data-ambient-paused], [data-tab-hidden]) *::after {
+  animation-play-state: paused !important;
+}
+
+:root[data-theme="dark"][data-season="navidad"] {
+  --sg-canvas: #170f10;
+  --sg-surface: #211617;
+  --sg-surface-raised: #302024;
+  --sg-nav: rgb(23 15 16 / .94);
+  --sg-glow: rgb(203 48 66 / .22);
 }
 
 .container { width: min(100% - 2rem, 1280px); margin-inline: auto; }
@@ -262,3 +290,41 @@
   }
 }
 
+
+
+.holiday-gold {
+  color: #ffda91;
+  background: linear-gradient(175deg, #fff4d0 3%, #f9d892 43%, #e9a951 91%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.holiday-edition {
+  border: 1px solid #ffd68d59;
+  background: linear-gradient(120deg, #36221d, #261318);
+}
+
+.holiday-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.holiday-cta::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: translateX(-125%);
+  background: linear-gradient(108deg, transparent 35%, #fff7d776 50%, transparent 65%);
+  content: "";
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .holiday-revealed { animation: holiday-reveal .65s cubic-bezier(.16, 1, .3, 1) both; }
+  .holiday-cta::after { @apply animate-holiday-shimmer; }
+}
+
+@keyframes holiday-reveal {
+  from { opacity: .72; transform: translateY(12px); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}

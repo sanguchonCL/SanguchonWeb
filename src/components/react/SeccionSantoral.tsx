@@ -80,7 +80,7 @@ export default function SeccionSantoral() {
 
       container.scrollTo({
         top: Math.max(0, targetTop),
-        behavior: 'smooth',
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
       });
     });
   }, [cur, month, query, days.length]);
@@ -92,7 +92,7 @@ export default function SeccionSantoral() {
   const next = () => setMonth(m => m >= 12 ? 1 : m + 1);
 
   return (
-    <section id="santoral" className="relative overflow-hidden" style={{ scrollMarginTop: 96 }}>
+    <section id="santoral" className="relative overflow-hidden">
       <img
         src="/images/seasonal/18-septiembre/cinta-chile.webp"
         alt=""
@@ -129,28 +129,8 @@ export default function SeccionSantoral() {
             gridTemplateColumns: 'repeat(1, 1fr)',
           }} className="santoral-top-grid">
 
-            {/* ╔══ IMAGEN PROMO ══╗ */}
-            <div className="santoral-media group bg-charcoal ring-1 ring-line santoral-reveal" style={{
-              borderRadius: 22,
-              overflow: 'hidden',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'linear-gradient(180deg, #f97316 0%, #9a3412 40%, var(--sg-charcoal, #100d0b) 100%)',
-            }}>
-              <img
-                src="/images/promos/si-estas-de-santo.webp"
-                srcSet="/images/promos/si-estas-de-santo-640.webp 640w, /images/promos/si-estas-de-santo.webp 1024w"
-                sizes="(max-width: 1023px) 100vw, 42vw"
-                alt="Promo: completo y bebida gratis si estás de santo"
-                style={{ width: '100%', height: 'auto', maxHeight: 520, objectFit: 'contain' }}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-
             {/* ╔══ SANTO DEL DÍA ══╗ */}
-            <article className="bg-surface-raised ring-1 ring-line santoral-reveal" style={{
+            <article className="bg-surface-raised ring-1 ring-line santoral-reveal min-w-0 lg:col-start-2 lg:row-start-1" style={{
               animationDelay: '120ms',
               borderRadius: 22,
               padding: 'clamp(1.5rem, 3vw, 2rem)',
@@ -177,7 +157,7 @@ export default function SeccionSantoral() {
                     marginTop: 16,
                     fontSize: 'clamp(1.6rem, 3.5vw, 2.8rem)',
                     lineHeight: 0.92,
-                    letterSpacing: '-0.025em',
+                    letterSpacing: '-0.025em', overflowWrap: 'anywhere',
                     textTransform: 'uppercase',
                   }}>
                     Hoy celebramos a:{' '}
@@ -201,25 +181,59 @@ export default function SeccionSantoral() {
                 Ven por tu completo + bebida gratis mostrando tu carnet y con un partner.
               </p>
 
+              <div className="relative mt-5 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 sm:gap-5">
               <a
                 href="#ubicacion"
                 className="bg-fire text-white"
                 style={{
-                  marginTop: 24, display: 'inline-flex', alignItems: 'center', gap: 8,
+                  display: 'inline-flex', alignItems: 'center', gap: 8,
                   borderRadius: 9999, padding: '12px 24px',
                   fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em',
-                  transition: 'transform .2s, background .2s', alignSelf: 'flex-start',
+                  transition: 'transform .2s, background .2s', justifySelf: 'start',
                 }}
                 onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')}
                 onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}
               >
-                Reclamar promo <span aria-hidden="true">→</span>
+                Cómo llegar para canjear <span aria-hidden="true">→</span>
               </a>
+                <figure className="relative isolate w-[clamp(5.75rem,23vw,10.5rem)]">
+                  <span aria-hidden="true" className="absolute inset-[12%] -z-10 rounded-full bg-[#ffd58b]/25 blur-xl"></span>
+                  <img
+                    src="/images/seasonal/navidad/san-guchito.png"
+                    alt="San Guchito, querubín con una hamburguesa"
+                    width={388}
+                    height={340}
+                    loading="lazy"
+                    decoding="async"
+                    className="relative mx-auto w-[88%] drop-shadow-[0_8px_12px_rgb(0_0_0/.45)]"
+                  />
+                </figure>
+              </div>
             </article>
+            {/* ╔══ IMAGEN PROMO ══╗ */}
+            <div className="santoral-media lg:col-start-1 lg:row-start-1 group bg-charcoal ring-1 ring-line santoral-reveal" style={{
+              borderRadius: 22,
+              overflow: 'hidden',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'linear-gradient(180deg, #f97316 0%, #9a3412 40%, var(--sg-charcoal, #100d0b) 100%)',
+            }}>
+              <img
+                src="/images/promos/si-estas-de-santo.webp"
+                srcSet="/images/promos/si-estas-de-santo-640.webp 640w, /images/promos/si-estas-de-santo.webp 1024w"
+                sizes="(max-width: 1023px) 100vw, 42vw"
+                alt="Promo: completo y bebida gratis si estás de santo"
+                style={{ width: '100%', height: 'auto', maxHeight: 520, objectFit: 'contain' }}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
           </div>
 
           {/* ╔══ CALENDARIO ══╗ */}
-          <article className="bg-surface-raised ring-1 ring-line santoral-reveal" style={{
+          <article className="bg-surface-raised ring-1 ring-line santoral-reveal min-w-0" style={{
             animationDelay: '220ms',
             borderRadius: 22, overflow: 'hidden',
             boxShadow: '0 20px 55px rgb(34 15 7 / .10)',
@@ -258,7 +272,7 @@ export default function SeccionSantoral() {
                     background: '#171310', color: '#fff8ed', colorScheme: 'dark',
                     minWidth: 118, padding: '8px 32px 8px 12px',
                     fontSize: '0.875rem', fontWeight: 700,
-                    outline: 'none', cursor: 'pointer',
+                    cursor: 'pointer',
                     backgroundImage: 'linear-gradient(45deg, transparent 50%, #e83b16 50%), linear-gradient(135deg, #e83b16 50%, transparent 50%)',
                     backgroundPosition: 'calc(100% - 15px) 50%, calc(100% - 10px) 50%',
                     backgroundSize: '5px 5px, 5px 5px',

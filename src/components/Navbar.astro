@@ -7,13 +7,22 @@ const links = [
   { label: "Feedback", href: "#feedback" },
   { label: "Ubicación", href: "#ubicacion" },
 ];
+const bulbs = Array.from({ length: 11 }, (_, index) => {
+  const position = index / 10;
+  return {
+    position: position * 100,
+    drop: 24 * position * (1 - position),
+    delay: -(index * .37),
+    color: index % 2 === 0 ? "red" : "green",
+  };
+});
 ---
 
 <header class="fixed inset-x-0 top-0 z-40 pt-3 sm:pt-4">
   <div class="container relative">
     <nav
       id="siteNav"
-      class="relative z-50 flex min-h-16 items-center justify-between gap-3 rounded-full border border-line bg-[var(--sg-nav)] px-3 shadow-[0_14px_40px_rgb(20_8_2/.12)] backdrop-blur-xl transition-all duration-300 sm:px-4"
+      class="relative z-50 flex min-h-16 items-center justify-between gap-2 rounded-full border border-line bg-[var(--sg-nav)] px-3 shadow-[0_14px_40px_rgb(20_8_2/.12)] backdrop-blur-xl transition-all duration-300 sm:px-4 md:gap-3"
       aria-label="Navegación principal"
     >
       <a
@@ -26,10 +35,10 @@ const links = [
           width="512"
           height="461"
           alt=""
-          class="logo-premium h-11 w-11 object-contain sm:h-12 sm:w-12"
+          class="logo-premium h-9 w-9 object-contain sm:h-12 sm:w-12 md:h-11 md:w-11"
         />
         <span
-          class="hidden font-display text-xl leading-none tracking-wide text-ink sm:block"
+          class="whitespace-nowrap font-display text-base leading-none tracking-wide text-ink sm:text-xl"
           >SAN GUCHON<span class="text-fire">.</span></span
         >
       </a>
@@ -48,13 +57,15 @@ const links = [
       </div>
 
       <div class="flex items-center gap-2 sm:gap-3">
+        <span class="mobile-season-badge md:hidden">Edición Navidad</span>
         <!-- Mobile Menu Toggle Button -->
         <button
           id="mobileMenuBtn"
           type="button"
-          class="grid size-10 shrink-0 place-items-center rounded-full border border-line bg-surface-raised text-ink shadow-sm transition-colors hover:text-fire lg:hidden"
+          class="grid size-11 shrink-0 place-items-center rounded-full border border-line bg-surface-raised text-ink shadow-sm transition-colors hover:text-fire md:size-10 lg:hidden"
           aria-label="Abrir menú"
           aria-expanded="false"
+          aria-controls="mobileMenu"
         >
           <svg
             class="menu-icon-open size-[20px]"
@@ -77,11 +88,21 @@ const links = [
           >
         </button>
       </div>
+      <div class="nav-garland" aria-hidden="true">
+        {bulbs.map(({ position, drop, delay, color }) => (
+          <span
+            class="nav-garland__pendant"
+            data-color={color}
+            style={`--position:${position}%;--drop:${drop}px;--delay:${delay}s`}
+          ><i></i></span>
+        ))}
+      </div>
     </nav>
 
     <!-- Mobile Menu Dropdown -->
     <div
       id="mobileMenu"
+      inert
       class="pointer-events-none absolute left-0 right-0 top-full z-40 mt-2 -translate-y-4 opacity-0 transition-all duration-300 lg:hidden"
     >
       <div
@@ -116,6 +137,8 @@ const links = [
 
     if (isExpanded || forceClose) {
       mobileMenuBtn.setAttribute("aria-expanded", "false");
+      mobileMenuBtn.setAttribute("aria-label", "Abrir menú");
+      mobileMenu.inert = true;
       mobileMenu.classList.remove(
         "opacity-100",
         "translate-y-0",
@@ -130,6 +153,8 @@ const links = [
       iconClose?.classList.add("hidden");
     } else {
       mobileMenuBtn.setAttribute("aria-expanded", "true");
+      mobileMenuBtn.setAttribute("aria-label", "Cerrar menú");
+      mobileMenu.inert = false;
       mobileMenu.classList.remove(
         "opacity-0",
         "-translate-y-4",
@@ -147,6 +172,18 @@ const links = [
 
   mobileMenuBtn?.addEventListener("click", () => toggleMenu());
 
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key !== "Escape" ||
+      mobileMenuBtn?.getAttribute("aria-expanded") !== "true" ||
+      !mobileMenuBtn.getClientRects().length
+    ) return;
+
+    event.preventDefault();
+    toggleMenu(true);
+    mobileMenuBtn.focus();
+  });
+
   mobileMenuLinks.forEach((link) => {
     link.addEventListener("click", () => toggleMenu(true));
   });
@@ -159,6 +196,88 @@ const links = [
 </script>
 
 <style>
+  .nav-garland {
+    position: absolute;
+    inset: 100% clamp(1.4rem, 8%, 5rem) auto;
+    height: 1.2rem;
+    pointer-events: none;
+  }
+
+  .nav-garland::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 7px;
+    border-bottom: 1px solid #a797775e;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  }
+
+  .nav-garland__pendant {
+    --bulb: #ff4e68;
+    --highlight: #ffd1d5;
+    position: absolute;
+    top: var(--drop);
+    left: var(--position);
+    width: 8px;
+    margin-left: -4px;
+    transform-origin: 50% 0;
+  }
+
+  .nav-garland__pendant[data-color="green"] {
+    --bulb: #2fda87;
+    --highlight: #d1ffdb;
+  }
+
+  .nav-garland__pendant::before {
+    content: "";
+    display: block;
+    width: 4px;
+    height: 4px;
+    margin-inline: auto;
+    border-radius: 1px;
+    background: linear-gradient(90deg, #4c3c35, #a68c6e, #5d483b);
+  }
+
+  .nav-garland__pendant i {
+    display: block;
+    width: 8px;
+    height: 10px;
+    border-radius: 42% 42% 58% 58%;
+    background: radial-gradient(circle at 35% 28%, var(--highlight), var(--bulb) 65%);
+    box-shadow: 0 0 8px var(--bulb);
+  }
+
+  #siteNav:has(#mobileMenuBtn[aria-expanded="true"]) .nav-garland {
+    visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .nav-garland__pendant { animation: bulb-sway 3.6s var(--delay) ease-in-out infinite alternate; }
+    .nav-garland__pendant i { animation: bulb-blink 2.8s var(--delay) ease-in-out infinite; }
+  }
+
+  @keyframes bulb-sway {
+    from { transform: rotate(-6deg); }
+    to { transform: rotate(6deg); }
+  }
+
+  @keyframes bulb-blink {
+    0%, 66%, 100% { opacity: .24; }
+    14%, 44% { opacity: 1; }
+  }
+
+  .mobile-season-badge {
+    border: 1px solid #dca76955;
+    border-radius: 999px;
+    padding: .32rem .45rem;
+    color: #ffe0a2;
+    font-size: .59rem;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
   #siteNav.nav-is-scrolled {
     box-shadow: 0 16px 44px rgb(20 8 2 / 0.2);
     transform: scale(0.985);
