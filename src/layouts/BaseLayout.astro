@@ -39,10 +39,7 @@ const structuredData = {
         longitude: SITE_INFO.longitude,
       },
       hasMap: SITE_INFO.googleMapsUrl,
-      openingHoursSpecification: [
-        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"], opens: "12:30", closes: "23:15" },
-        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Friday", "Saturday"], opens: "12:30", closes: "23:59" },
-      ],
+      openingHoursSpecification: SITE_INFO.openingHoursSpecification,
     },
     {
       "@type": "WebSite",

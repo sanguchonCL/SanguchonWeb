@@ -1,4 +1,9 @@
 // src/data/site-info.ts
+const openingHours = [
+  { label: "Dom–Jue", days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"], opens: "12:30", closes: "23:00" },
+  { label: "Vie–Sáb", days: ["Friday", "Saturday"], opens: "12:30", closes: "01:00", closesNextDay: true },
+];
+
 export const SITE_INFO = {
   name: "Sanguchon",
   url: "https://www.sanguchonoficial.cl",
@@ -14,7 +19,17 @@ export const SITE_INFO = {
   addressCountry: "CL",
   latitude: -33.4973577,
   longitude: -70.6601967,
-  schedule: "Lun — Jue, Dom · 12:30 a 23:15 | Vie — Sáb · 12:30 a 01:45",
+  schedule: openingHours
+    .map(({ label, opens, closes, closesNextDay }) =>
+      `${label} · ${opens} a ${closes}${closesNextDay ? " del día siguiente" : ""}`,
+    )
+    .join(" | "),
+  openingHoursSpecification: openingHours.map(({ days, opens, closes }) => ({
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: days,
+    opens,
+    closes,
+  })),
   googleFormsUrl:
     "https://docs.google.com/forms/d/e/1FAIpQLSeoVRNq3eUdvCjYVcxxuNpkzwWIINlRvSBUVdKRvn_I1ubZcQ/viewform",
   googleMapsIframeUrl:
